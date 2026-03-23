@@ -149,7 +149,7 @@ Local files in `public/images/press/`:
 
 ## Pending / In Progress
 - USP section (WhatIsSeraya) images — replacing with AI-generated editorial images. Direction:
-  - "Stay on your terms": woman from behind at floor-to-ceiling window, Dubai skyline, golden hour ✓ (approved image, needs uploading to Cloudinary)
+  - "Stay on your terms": `Seraya_Living__Gemini_3_Nano_Banana_Pro_2026-03-23_21-56-36_50_wxydpr` ✓ live
   - "Arrive and live": styled detail shot — bed, kitchen counter, or dining table
   - "Entirely looked after": curated apartment detail, serene, dusk light
 

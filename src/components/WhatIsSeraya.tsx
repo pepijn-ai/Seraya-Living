@@ -7,7 +7,7 @@ const USPs = [
     eyebrow: "Flexible stays",
     title: "Stay on your terms",
     body: "No lease, no yearly commitment. Stay for a month, a season, or as long as you need — and pay month by month.",
-    image: getCloudinaryUrl("seraya/units/unit-37/listing/web/DTV1-1909(web)-49", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
+    image: getCloudinaryUrl("Seraya_Living__Gemini_3_Nano_Banana_Pro_2026-03-23_21-56-36_50_wxydpr", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
   },
   {
     eyebrow: "Fully furnished",
