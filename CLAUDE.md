@@ -70,21 +70,21 @@ A standalone Next.js landing page for **Seraya Living**, a luxury mid-term renta
 
 ---
 
-## Page Structure (in order)
+## Page Structure (exact order from page.tsx)
 1. **Navbar** — transparent at top, solid on scroll
-2. **Hero** — full-screen Cloudinary image, headline, InquiryBar at bottom
-3. **WhatIsSeraya** — "The world of Seraya Living", 3-col USP grid with portrait images
-4. **SocialProof** — Condé Nast quote over dunes image + logo strip (Airbnb, Forbes, Condé Nast, CNT)
-5. **HowItWorks** — 4-col horizontal steps, no connecting line
+2. **Hero** — full-screen Cloudinary image (`seraya/units/unit-47/listing/web/Downtown Views II_T1_1901(Web)-51`), headline "Flexible luxury living in Dubai", 4 proof points, InquiryBar at bottom
+3. **WhatIsSeraya** — "The world of Seraya Living", 3-col USP grid with 4:5 portrait images
+4. **SocialProof** — Condé Nast quote over dunes image (`public/images/press/dunes.png`) + logo strip (Airbnb, Forbes, Condé Nast, CNT)
+5. **HowItWorks** — 4-col horizontal steps with vertical dividers between columns
 6. **IncludedServices** — icon grid
-7. **FeaturedResidences** — 3 cards top row + 2 larger bottom row (5 apartments total)
-8. **SerayaStudio** — dark section (#2D170F bg), asymmetric image grid, furniture brand moment
+7. **FeaturedResidences** — 3 cards top row (aspect-[4/3]) + 2 larger bottom row (aspect-[4/3]), 5 apartments total
+8. **SerayaStudio** — dark section (#2D170F bg), asymmetric grid (3fr left + 2fr right with 2 stacked), placeholder images, swap for real furniture photos
 9. **Locations** — Dubai districts with images
-10. **InquiryCTA** — clean centered CTA, opens modal (id="inquiry-form" for sticky bar observer)
-11. **FAQ** — accordion
+10. **InquiryCTA** — centered CTA section, `id="inquiry-form"` (required for sticky bar IntersectionObserver)
+11. **FAQ** — accordion, one open at a time
 12. **Footer**
-13. **WhatsAppButton** — fixed bottom right
-14. **InquiryBarStickyController** — fixed bottom bar, shows when both hero and inquiry-form are out of viewport
+13. **WhatsAppButton** — fixed bottom right, z-60
+14. **InquiryBarStickyController** — fixed bottom bar, shows when BOTH #hero and #inquiry-form are out of viewport
 15. **InquiryModal** — 3-step modal, primary conversion flow
 
 ---
