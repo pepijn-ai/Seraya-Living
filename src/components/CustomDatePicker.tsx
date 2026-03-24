@@ -22,6 +22,23 @@ function formatDisplay(value: string): string {
   return `${d} ${MONTHS[parseInt(m) - 1]} ${y}`;
 }
 
+function buildCells(year: number, month: number): (number | null)[] {
+  const firstDay = new Date(year, month, 1);
+  const lastDay = new Date(year, month + 1, 0);
+  const startOffset = (firstDay.getDay() + 6) % 7;
+  const totalCells = Math.ceil((startOffset + lastDay.getDate()) / 7) * 7;
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < totalCells; i++) {
+    const dayNum = i - startOffset + 1;
+    cells.push(dayNum >= 1 && dayNum <= lastDay.getDate() ? dayNum : null);
+  }
+  return cells;
+}
+
+function getNextMonth(year: number, month: number) {
+  return month === 11 ? { year: year + 1, month: 0 } : { year, month: month + 1 };
+}
+
 export default function CustomDatePicker({
   value,
   onChange,
@@ -35,6 +52,8 @@ export default function CustomDatePicker({
   const [viewMonth, setViewMonth] = useState(today.getMonth());
   const ref = useRef<HTMLDivElement>(null);
 
+  const next = getNextMonth(viewYear, viewMonth);
+
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (ref.current && !ref.current.contains(e.target as Node)) {
@@ -45,19 +64,6 @@ export default function CustomDatePicker({
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  // Build calendar grid (Mon-start)
-  const firstDay = new Date(viewYear, viewMonth, 1);
-  const lastDay = new Date(viewYear, viewMonth + 1, 0);
-  // Monday = 0 offset
-  const startOffset = (firstDay.getDay() + 6) % 7;
-  const totalCells = Math.ceil((startOffset + lastDay.getDate()) / 7) * 7;
-
-  const cells: (number | null)[] = [];
-  for (let i = 0; i < totalCells; i++) {
-    const dayNum = i - startOffset + 1;
-    cells.push(dayNum >= 1 && dayNum <= lastDay.getDate() ? dayNum : null);
-  }
-
   const prevMonth = () => {
     if (viewMonth === 0) { setViewMonth(11); setViewYear(viewYear - 1); }
     else setViewMonth(viewMonth - 1);
@@ -67,126 +73,134 @@ export default function CustomDatePicker({
     else setViewMonth(viewMonth + 1);
   };
 
-  const selectDay = (day: number) => {
-    const m = String(viewMonth + 1).padStart(2, "0");
+  const selectDay = (day: number, year: number, month: number) => {
+    const m = String(month + 1).padStart(2, "0");
     const d = String(day).padStart(2, "0");
-    onChange(`${viewYear}-${m}-${d}`);
+    onChange(`${year}-${m}-${d}`);
     if (!inline) setOpen(false);
   };
 
-  const isSelected = (day: number) => {
+  const isSelected = (day: number, year: number, month: number) => {
     if (!value) return false;
     const [y, m, d] = value.split("-");
-    return parseInt(y) === viewYear && parseInt(m) - 1 === viewMonth && parseInt(d) === day;
+    return parseInt(y) === year && parseInt(m) - 1 === month && parseInt(d) === day;
   };
 
-  const isToday = (day: number) =>
-    today.getFullYear() === viewYear &&
-    today.getMonth() === viewMonth &&
-    today.getDate() === day;
+  const isToday = (day: number, year: number, month: number) =>
+    today.getFullYear() === year && today.getMonth() === month && today.getDate() === day;
 
-  const isPast = (day: number) => {
-    const d = new Date(viewYear, viewMonth, day);
+  const isPast = (day: number, year: number, month: number) => {
+    const d = new Date(year, month, day);
     d.setHours(0, 0, 0, 0);
     const t = new Date();
     t.setHours(0, 0, 0, 0);
     return d < t;
   };
 
-  const calendarGrid = (
-    <>
-      {/* Header */}
-      <div className="flex items-center justify-between mb-5">
-        <button
-          type="button"
-          onClick={prevMonth}
-          className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-brand-bg-alt transition-colors"
-        >
-          <ChevronLeft size={15} strokeWidth={1.5} className="text-brand-heading" />
-        </button>
-        <span className="font-serif text-base font-medium text-brand-heading">
-          {MONTHS[viewMonth]} {viewYear}
-        </span>
-        <button
-          type="button"
-          onClick={nextMonth}
-          className="w-7 h-7 flex items-center justify-center rounded-full hover:bg-brand-bg-alt transition-colors"
-        >
-          <ChevronRight size={15} strokeWidth={1.5} className="text-brand-heading" />
-        </button>
-      </div>
-
-      {/* Day names */}
-      <div className="grid grid-cols-7 mb-2">
-        {DAYS.map((d) => (
-          <span
-            key={d}
-            className="text-center font-sans text-[10px] uppercase tracking-wider text-brand-body/40 pb-2"
-          >
-            {d}
-          </span>
-        ))}
-      </div>
-
-      {/* Days grid */}
-      <div className="grid grid-cols-7 gap-y-1">
-        {cells.map((day, i) => {
-          if (!day) return <div key={i} />;
-          const selected = isSelected(day);
-          const today_ = isToday(day);
-          const past = isPast(day);
-
-          return (
+  const renderMonthGrid = (
+    year: number,
+    month: number,
+    showPrev: boolean,
+    showNext: boolean,
+  ) => {
+    const cells = buildCells(year, month);
+    return (
+      <div>
+        <div className="flex items-center justify-between mb-5">
+          {showPrev ? (
             <button
-              key={i}
               type="button"
-              disabled={past}
-              onClick={() => selectDay(day)}
-              className={`
-                h-8 w-8 mx-auto flex items-center justify-center rounded-md font-sans text-sm transition-colors duration-150
-                ${selected
-                  ? "bg-brand-body text-white"
-                  : past
-                  ? "text-brand-body/20 cursor-not-allowed"
-                  : today_
-                  ? "text-brand-heading font-medium hover:bg-brand-bg-alt"
-                  : "text-brand-body hover:bg-brand-bg-alt"
-                }
-              `}
+              onClick={prevMonth}
+              className="w-7 h-7 flex items-center justify-center hover:bg-brand-bg-alt transition-colors"
             >
-              {day}
+              <ChevronLeft size={15} strokeWidth={1.5} className="text-brand-heading" />
             </button>
-          );
-        })}
-      </div>
+          ) : <div className="w-7" />}
+          <span className="font-serif text-base font-medium text-brand-heading">
+            {MONTHS[month]} {year}
+          </span>
+          {showNext ? (
+            <button
+              type="button"
+              onClick={nextMonth}
+              className="w-7 h-7 flex items-center justify-center hover:bg-brand-bg-alt transition-colors"
+            >
+              <ChevronRight size={15} strokeWidth={1.5} className="text-brand-heading" />
+            </button>
+          ) : <div className="w-7" />}
+        </div>
 
-      {/* Today shortcut */}
-      <div className="mt-4 pt-4 border-t border-brand-body/10 flex justify-end">
-        <button
-          type="button"
-          onClick={() => {
-            const t = new Date();
-            const y = t.getFullYear();
-            const m = String(t.getMonth() + 1).padStart(2, "0");
-            const d = String(t.getDate()).padStart(2, "0");
-            onChange(`${y}-${m}-${d}`);
-            if (!inline) setOpen(false);
-          }}
-          className="font-sans text-xs text-brand-heading hover:text-brand-accent transition-colors"
-        >
-          Today
-        </button>
+        <div className="grid grid-cols-7 mb-2">
+          {DAYS.map((d) => (
+            <span
+              key={d}
+              className="text-center font-sans text-[10px] uppercase tracking-wider text-brand-body/40 pb-2"
+            >
+              {d}
+            </span>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-7 gap-y-1">
+          {cells.map((day, i) => {
+            if (!day) return <div key={i} />;
+            const selected = isSelected(day, year, month);
+            const todayDay = isToday(day, year, month);
+            const past = isPast(day, year, month);
+            return (
+              <button
+                key={i}
+                type="button"
+                disabled={past}
+                onClick={() => selectDay(day, year, month)}
+                className={`
+                  h-8 w-8 mx-auto flex items-center justify-center font-sans text-sm transition-colors duration-150
+                  ${selected
+                    ? "bg-brand-body text-white"
+                    : past
+                    ? "text-brand-body/20 cursor-not-allowed"
+                    : todayDay
+                    ? "text-brand-heading font-medium hover:bg-brand-bg-alt"
+                    : "text-brand-body hover:bg-brand-bg-alt"
+                  }
+                `}
+              >
+                {day}
+              </button>
+            );
+          })}
+        </div>
       </div>
-    </>
+    );
+  };
+
+  const todayShortcut = (
+    <div className="mt-4 pt-4 border-t border-brand-body/10 flex justify-end">
+      <button
+        type="button"
+        onClick={() => {
+          const t = new Date();
+          const y = t.getFullYear();
+          const m = String(t.getMonth() + 1).padStart(2, "0");
+          const d = String(t.getDate()).padStart(2, "0");
+          onChange(`${y}-${m}-${d}`);
+          if (!inline) setOpen(false);
+        }}
+        className="font-sans text-xs text-brand-heading hover:text-brand-accent transition-colors"
+      >
+        Today
+      </button>
+    </div>
   );
 
   if (inline) {
     return (
       <div
-        className="bg-brand-bg rounded-none p-5 w-full"
+        className="bg-brand-bg p-5 w-full"
         style={{ border: "1px solid rgba(199, 117, 87, 0.3)" }}
       >
-        {calendarGrid}
+        {renderMonthGrid(viewYear, viewMonth, true, true)}
+        {todayShortcut}
       </div>
     );
   }
@@ -198,11 +212,11 @@ export default function CustomDatePicker({
         onClick={() => {
           if (!open && ref.current) {
             const rect = ref.current.getBoundingClientRect();
-            setOpenUpward(window.innerHeight - rect.bottom < 380);
+            setOpenUpward(window.innerHeight - rect.bottom < 420);
           }
           setOpen(!open);
         }}
-        className="w-full flex items-center justify-between bg-white rounded-none px-4 py-3 font-sans text-sm text-left outline-none"
+        className="w-full flex items-center justify-between bg-white px-4 py-3 font-sans text-sm text-left outline-none"
         style={{ border: "1px solid rgba(199, 117, 87, 0.5)" }}
       >
         <span className={value ? "text-brand-body" : "text-brand-body/40"}>
@@ -218,13 +232,31 @@ export default function CustomDatePicker({
 
       {open && (
         <div
-          className={`absolute ${openUpward ? "bottom-full mb-1" : "top-full mt-1"} left-0 bg-brand-bg rounded-none p-5 z-50 w-72`}
+          className={`absolute ${openUpward ? "bottom-full mb-1" : "top-full mt-1"} left-0 bg-brand-bg z-50`}
           style={{
             border: "1px solid rgba(199, 117, 87, 0.3)",
             boxShadow: "0 8px 32px rgba(45, 23, 15, 0.12)",
           }}
         >
-          {calendarGrid}
+          {/* Mobile: single month */}
+          <div className="md:hidden p-5 w-72">
+            {renderMonthGrid(viewYear, viewMonth, true, true)}
+            {todayShortcut}
+          </div>
+
+          {/* Desktop: two months side by side */}
+          <div className="hidden md:block p-6">
+            <div className="flex gap-8">
+              <div className="w-[260px]">
+                {renderMonthGrid(viewYear, viewMonth, true, false)}
+              </div>
+              <div className="w-px bg-brand-body/10 self-stretch" />
+              <div className="w-[260px]">
+                {renderMonthGrid(next.year, next.month, false, true)}
+              </div>
+            </div>
+            {todayShortcut}
+          </div>
         </div>
       )}
     </div>
