@@ -29,27 +29,31 @@ export default function InquiryBar({ values, onChange, onCTA, sticky = false }: 
           : "px-4 py-4 md:px-6"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-stretch md:items-end justify-center gap-3">
-        {/* Move-in date */}
-        <div className="flex flex-col flex-1 min-w-0" style={{ maxWidth: "380px" }}>
-          <span className="font-sans text-[10px] uppercase tracking-widest text-brand-body/50 mb-1 px-1">
-            Move-in date
-          </span>
-          <CustomDatePicker
-            value={values.moveIn}
-            onChange={(v) => onChange({ moveIn: v })}
-            placeholder="Select your move-in date"
-          />
-        </div>
+      <div className="max-w-[1400px] mx-auto flex justify-center">
+        {/* tight wrapper — calendar anchors to this */}
+        <div className="relative flex flex-col md:flex-row items-stretch md:items-end gap-3 w-full md:w-auto">
+          {/* Move-in date */}
+          <div className="flex flex-col md:w-[380px]">
+            <span className="font-sans text-[10px] uppercase tracking-widest text-brand-body/50 mb-1 px-1">
+              Move-in date
+            </span>
+            <CustomDatePicker
+              value={values.moveIn}
+              onChange={(v) => onChange({ moveIn: v })}
+              placeholder="Select your move-in date"
+              fullWidth
+            />
+          </div>
 
-        {/* CTA */}
-        <button
-          onClick={handleCTA}
-          className="flex-none bg-brand-cta text-white font-sans font-medium text-sm px-8 py-3 rounded-none hover:bg-[#3D2710] transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
-        >
-          Request availability
-          <span aria-hidden="true">→</span>
-        </button>
+          {/* CTA */}
+          <button
+            onClick={handleCTA}
+            className="flex-none bg-brand-cta text-white font-sans font-medium text-sm px-8 py-3 rounded-none hover:bg-[#3D2710] transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
+          >
+            Request availability
+            <span aria-hidden="true">→</span>
+          </button>
+        </div>
       </div>
     </div>
   );
