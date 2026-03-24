@@ -29,7 +29,7 @@ export default function InquiryBar({ values, onChange, onCTA, sticky = false }: 
           : "px-4 py-4 md:px-6"
       }`}
     >
-      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-stretch md:items-end justify-center gap-3">
+      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-stretch md:items-end justify-center gap-3 relative">
         {/* Move-in date */}
         <div className="flex flex-col flex-1 md:max-w-xs min-w-0">
           <span className="font-sans text-[10px] uppercase tracking-widest text-brand-body/50 mb-1 px-1">
@@ -39,6 +39,7 @@ export default function InquiryBar({ values, onChange, onCTA, sticky = false }: 
             value={values.moveIn}
             onChange={(v) => onChange({ moveIn: v })}
             placeholder="Select your move-in date"
+            fullWidth
           />
         </div>
 
