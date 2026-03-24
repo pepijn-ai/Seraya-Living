@@ -28,7 +28,7 @@ export default function GuestServices() {
               discreetly and without fuss. A full range of à la carte services is
               available throughout your stay.
             </p>
-            <div className="mt-8 grid grid-cols-3 gap-x-8 gap-y-3 max-w-lg mx-auto">
+            <div className="mt-8 grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-3 max-w-lg mx-auto">
               {[
                 "Dedicated concierge",
                 "Private chauffeur",
@@ -46,10 +46,10 @@ export default function GuestServices() {
         </FadeIn>
 
         {/* Staggered image trio */}
-        <div className="max-w-3xl mx-auto grid grid-cols-3 gap-4 md:gap-5 items-start">
-          {/* Left — shifted down */}
+        <div className="max-w-3xl mx-auto grid grid-cols-3 gap-3 md:gap-5 items-start">
+          {/* Left — shifted down on desktop only */}
           <FadeIn delay={0}>
-            <div className="relative w-full mt-8 md:mt-10 overflow-hidden" style={{ aspectRatio: "4/5" }}>
+            <div className="relative w-full md:mt-10 overflow-hidden" style={{ aspectRatio: "4/5" }}>
               <Image
                 src={IMAGE_LEFT}
                 alt="Private chauffeur service"
@@ -73,9 +73,9 @@ export default function GuestServices() {
             </div>
           </FadeIn>
 
-          {/* Right — shifted down */}
+          {/* Right — shifted down on desktop only */}
           <FadeIn delay={200}>
-            <div className="relative w-full mt-8 md:mt-10 overflow-hidden" style={{ aspectRatio: "4/5" }}>
+            <div className="relative w-full md:mt-10 overflow-hidden" style={{ aspectRatio: "4/5" }}>
               <Image
                 src={IMAGE_RIGHT}
                 alt="Private chef service"

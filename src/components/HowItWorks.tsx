@@ -36,7 +36,7 @@ export default function HowItWorks() {
         <div className="grid grid-cols-1 md:grid-cols-4">
           {steps.map((step, i) => (
             <FadeIn key={i} delay={i * 100}>
-              <div className={`p-8 flex flex-col gap-4 ${i > 0 ? "md:border-l border-brand-body/10" : ""}`}>
+              <div className={`p-6 md:p-8 flex flex-col gap-4 ${i > 0 ? "border-t md:border-t-0 md:border-l border-brand-body/10" : ""}`}>
                 <span className="font-serif text-3xl font-medium text-brand-heading/25">
                   {step.number}
                 </span>
