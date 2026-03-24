@@ -16,12 +16,12 @@ export default function Locations() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {locations.map((loc, i) => (
             <FadeIn key={loc.name} delay={i * 100}>
-              <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
+              <div className="group relative aspect-[3/4] overflow-hidden rounded-sm">
                 <Image
                   src={getCloudinaryUrl(loc.image, { width: 640, height: 853, crop: "fill", gravity: "auto" })}
                   alt={loc.name}
                   fill
-                  className="object-cover"
+                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                   sizes="(max-width: 768px) 50vw, 25vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
