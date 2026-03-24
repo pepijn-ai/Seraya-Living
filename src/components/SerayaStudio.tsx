@@ -2,74 +2,70 @@ import Image from "next/image";
 import FadeIn from "./FadeIn";
 import { getCloudinaryUrl } from "@/lib/cloudinary";
 
-// Placeholder images — swap these for real Seraya Studio furniture shots
-const MAIN_IMAGE = getCloudinaryUrl("seraya/units/unit-49/listing/web/DTV1-2106(Web)-9", { width: 1200, height: 1400, crop: "fill", gravity: "auto" });
-const DETAIL_1   = getCloudinaryUrl("seraya/units/unit-50/listing/web/Downtown Views II_T1_2004-8", { width: 800, height: 680, crop: "fill", gravity: "auto" });
-const DETAIL_2   = getCloudinaryUrl("seraya/units/unit-37/listing/web/DTV1-1909(web)-51", { width: 800, height: 680, crop: "fill", gravity: "auto" });
+const PIECES = [
+  {
+    src: getCloudinaryUrl("Gemini_Generated_Image_r6tg69r6tg69r6tg_ral8bk", { width: 800, height: 800, crop: "fill", gravity: "auto" }),
+    alt: "Seraya Studio — marble coffee table",
+  },
+  {
+    src: getCloudinaryUrl("Gemini_Generated_Image_2hf0ru2hf0ru2hf0_nmz0ny", { width: 800, height: 800, crop: "fill", gravity: "auto" }),
+    alt: "Seraya Studio — stone side table",
+  },
+  {
+    src: getCloudinaryUrl("Gemini_Generated_Image_q01mqnq01mqnq01m_kjzzdk", { width: 800, height: 800, crop: "fill", gravity: "auto" }),
+    alt: "Seraya Studio — sofa",
+  },
+];
 
 export default function SerayaStudio() {
   return (
-    <section className="bg-brand-body py-20 md:py-28">
+    <section className="bg-brand-body py-16 md:py-24">
       <div className="max-w-[1400px] mx-auto px-3 md:px-6">
 
         {/* Header */}
         <FadeIn>
-          <p className="font-sans text-[10px] uppercase tracking-widest text-white/40 mb-4">
-            Seraya Studio
-          </p>
-          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
-            <h2 className="font-serif text-3xl md:text-4xl font-medium text-white max-w-md leading-snug">
-              Every piece designed and made in-house.
-            </h2>
-            <p className="font-sans text-sm text-white/60 leading-relaxed max-w-sm md:text-right">
-              Seraya Studio designs and crafts all furniture exclusively for our residences — built for the way people actually live, not for a show apartment.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
+            <div>
+              <p className="font-sans text-[10px] uppercase tracking-widest text-white/40 mb-4">
+                Seraya Studio
+              </p>
+              <h2 className="font-serif text-3xl md:text-4xl font-medium text-white max-w-md leading-snug">
+                Every piece, yours to live with
+              </h2>
+            </div>
+            <div className="max-w-sm">
+              <p className="font-sans text-sm text-white/60 leading-relaxed mb-4">
+                Every object in your residence is a Seraya Studio original — designed in-house and crafted locally in Dubai. Our residences are a living collection: stay among the pieces, and take home anything that moves you. Bespoke commissions welcome.
+              </p>
+              <a
+                href="https://seraya-studio.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 font-sans text-sm text-white/80 hover:text-white transition-colors duration-200 border-b border-white/20 hover:border-white pb-0.5"
+              >
+                Explore Seraya Studio <span aria-hidden="true">→</span>
+              </a>
+            </div>
           </div>
         </FadeIn>
 
-        {/* Asymmetric image grid */}
-        <div className="grid grid-cols-1 md:grid-cols-[3fr_2fr] gap-3">
-
-          {/* Large image — left */}
-          <FadeIn>
-            <div className="relative w-full overflow-hidden" style={{ aspectRatio: "3/4" }}>
-              <Image
-                src={MAIN_IMAGE}
-                alt="Seraya Studio — custom furniture"
-                fill
-                className="object-cover"
-                sizes="(max-width: 768px) 100vw, 60vw"
-              />
-            </div>
-          </FadeIn>
-
-          {/* Two stacked detail images — right */}
-          <div className="flex flex-col gap-3">
-            <FadeIn delay={80}>
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
+        {/* Three product images */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+          {PIECES.map((piece, i) => (
+            <FadeIn key={i} delay={i * 80}>
+              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1/1" }}>
                 <Image
-                  src={DETAIL_1}
-                  alt="Seraya Studio — detail"
+                  src={piece.src}
+                  alt={piece.alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 40vw"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
             </FadeIn>
-            <FadeIn delay={160}>
-              <div className="relative w-full overflow-hidden" style={{ aspectRatio: "4/3" }}>
-                <Image
-                  src={DETAIL_2}
-                  alt="Seraya Studio — detail"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 40vw"
-                />
-              </div>
-            </FadeIn>
-          </div>
-
+          ))}
         </div>
+
       </div>
     </section>
   );

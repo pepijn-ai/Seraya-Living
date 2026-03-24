@@ -12,14 +12,14 @@ const USPs = [
   {
     eyebrow: "Fully furnished",
     title: "Arrive and live",
-    body: "Every residence is guest-ready from the moment you arrive. Linens, kitchenware, and every detail are already in place — nothing to arrange, nothing to buy.",
-    image: getCloudinaryUrl("seraya/units/unit-50/listing/web/Downtown Views II_T1_2004-9", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
+    body: "Every residence is fully furnished and guest-ready from the moment you arrive. Linens, kitchenware, and every detail already in place — nothing to arrange, nothing to buy.",
+    image: getCloudinaryUrl("Seraya_Living__Gemini_3_Nano_Banana_Pro__2026-03-24_11-20-14_qxthmy", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
   },
   {
     eyebrow: "Fully serviced",
     title: "Entirely looked after",
     body: "Utilities, high-speed WiFi, and regular housekeeping are woven into a single monthly rate. Your dedicated concierge is on hand whenever you need them.",
-    image: getCloudinaryUrl("seraya/units/unit-49/listing/web/DTV1-2106(Web)-9", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
+    image: getCloudinaryUrl("Seraya_Living__Gemini_3_Nano_Banana_Pro__2026-03-24_12-25-09_iupbu0", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
   },
 ];
 
@@ -34,7 +34,7 @@ export default function WhatIsSeraya() {
             The world of Seraya Living
           </p>
           <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-16 max-w-lg leading-snug">
-            A new standard for extended stays in Dubai.
+            A new standard for extended stays in Dubai
           </h2>
         </FadeIn>
 

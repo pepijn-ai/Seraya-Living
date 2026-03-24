@@ -54,12 +54,12 @@ export default function ImageCarousel({ images, alt, aspectClass = "aspect-[4/3]
       <div ref={emblaRef} className="overflow-hidden h-full">
         <div className="flex h-full">
           {images.map((publicId, i) => (
-            <div key={i} className="relative flex-none w-full h-full">
+            <div key={i} className="relative flex-none w-full h-full overflow-hidden">
               <Image
                 src={getCloudinaryUrl(publicId, { width: 800, height: 600 })}
                 alt={`${alt} — image ${i + 1}`}
                 fill
-                className="object-cover"
+                className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                 sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 400px"
                 priority={i === 0}
               />

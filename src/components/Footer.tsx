@@ -14,7 +14,7 @@ export default function Footer() {
           </div>
 
           {/* Links */}
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 font-sans text-sm text-white/80">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-8 font-sans text-sm text-white/80">
             <a
               href="mailto:hello@serayastays.com"
               className="hover:text-white transition-colors"
@@ -36,6 +36,19 @@ export default function Footer() {
               className="hover:text-white transition-colors"
             >
               Visit Seraya Stays →
+            </a>
+            <a
+              href="https://www.instagram.com/serayastays/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Seraya on Instagram"
+              className="hover:text-white transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor"/>
+              </svg>
             </a>
           </div>
         </div>

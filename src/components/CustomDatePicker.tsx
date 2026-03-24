@@ -30,6 +30,7 @@ export default function CustomDatePicker({
 }: CustomDatePickerProps) {
   const today = new Date();
   const [open, setOpen] = useState(false);
+  const [openUpward, setOpenUpward] = useState(false);
   const [viewYear, setViewYear] = useState(today.getFullYear());
   const [viewMonth, setViewMonth] = useState(today.getMonth());
   const ref = useRef<HTMLDivElement>(null);
@@ -194,7 +195,13 @@ export default function CustomDatePicker({
     <div ref={ref} className="relative w-full">
       <button
         type="button"
-        onClick={() => setOpen(!open)}
+        onClick={() => {
+          if (!open && ref.current) {
+            const rect = ref.current.getBoundingClientRect();
+            setOpenUpward(window.innerHeight - rect.bottom < 380);
+          }
+          setOpen(!open);
+        }}
         className="w-full flex items-center justify-between bg-white rounded-none px-4 py-3 font-sans text-sm text-left outline-none"
         style={{ border: "1px solid rgba(199, 117, 87, 0.5)" }}
       >
@@ -211,7 +218,7 @@ export default function CustomDatePicker({
 
       {open && (
         <div
-          className="absolute top-full left-0 mt-1 bg-brand-bg rounded-none p-5 z-50 w-72"
+          className={`absolute ${openUpward ? "bottom-full mb-1" : "top-full mt-1"} left-0 bg-brand-bg rounded-none p-5 z-50 w-72`}
           style={{
             border: "1px solid rgba(199, 117, 87, 0.3)",
             boxShadow: "0 8px 32px rgba(45, 23, 15, 0.12)",

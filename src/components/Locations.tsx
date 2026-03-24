@@ -18,7 +18,7 @@ export default function Locations() {
             <FadeIn key={loc.name} delay={i * 100}>
               <div className="relative aspect-[3/4] overflow-hidden rounded-sm">
                 <Image
-                  src={getCloudinaryUrl(loc.image, { width: 640, height: 480 })}
+                  src={getCloudinaryUrl(loc.image, { width: 640, height: 853, crop: "fill", gravity: "auto" })}
                   alt={loc.name}
                   fill
                   className="object-cover"

@@ -8,6 +8,7 @@ import SerayaStudio from "@/components/SerayaStudio";
 import SocialProof from "@/components/SocialProof";
 import HowItWorks from "@/components/HowItWorks";
 import IncludedServices from "@/components/IncludedServices";
+import GuestServices from "@/components/GuestServices";
 import FeaturedResidences from "@/components/FeaturedResidences";
 import Locations from "@/components/Locations";
 import InquiryCTA from "@/components/InquiryCTA";
@@ -33,10 +34,11 @@ export default function Home() {
       <WhatIsSeraya />
       <SocialProof />
       <HowItWorks />
-      <IncludedServices />
       <FeaturedResidences onInquiryCTA={() => setModalOpen(true)} />
-      <SerayaStudio />
+      <IncludedServices />
+      <GuestServices />
       <Locations />
+      <SerayaStudio />
       <InquiryCTA onCTA={() => setModalOpen(true)} />
       <FAQ />
       <Footer />

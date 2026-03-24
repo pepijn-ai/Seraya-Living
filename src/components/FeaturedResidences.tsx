@@ -7,8 +7,11 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
     <section id="residences" className="bg-brand-bg py-20 md:py-28">
       <div className="max-w-[1400px] mx-auto px-3 md:px-6">
         <FadeIn>
+          <p className="font-sans text-[10px] uppercase tracking-widest text-brand-accent mb-4">
+            A selection of our residences
+          </p>
           <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-12">
-            Our residences
+            Crafted for extended living
           </h2>
         </FadeIn>
 
@@ -31,12 +34,15 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
         </div>
 
         <FadeIn>
-          <div className="mt-12 flex justify-center">
+          <div className="mt-12 flex flex-col items-center gap-4">
+            <p className="font-sans text-sm text-brand-body/60">
+              50+ residences across Dubai — one to four-bedroom penthouses.
+            </p>
             <button
               onClick={onInquiryCTA}
               className="inline-flex items-center gap-3 bg-brand-cta text-white font-sans font-medium text-sm px-8 py-4 hover:bg-[#3D2710] transition-colors duration-200"
             >
-              Inquire now
+              Inquire to see the full portfolio
               <span aria-hidden="true">→</span>
             </button>
           </div>
