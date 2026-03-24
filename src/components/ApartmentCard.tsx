@@ -22,8 +22,8 @@ export default function ApartmentCard({ apartment, aspectClass }: ApartmentCardP
           <span className="font-serif text-xl font-semibold text-brand-heading">
             {name}
           </span>
-          <span className="flex-1 border-b border-dotted border-brand-body/30 mb-1" />
-          <span className="font-sans text-sm font-medium text-brand-body whitespace-nowrap">
+          <span className="flex-1 border-b border-brand-body/20 mb-1" />
+          <span className="font-sans text-sm font-medium text-brand-heading whitespace-nowrap">
             From AED {formatAED(priceFrom)}
           </span>
         </div>
