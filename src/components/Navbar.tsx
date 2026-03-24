@@ -48,7 +48,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
           </a>
 
           <div className="relative group">
-            <button className={`font-sans text-[11px] uppercase tracking-widest ${textColor} px-5 py-2.5 bg-transparent hover:bg-brand-cta/20 transition-colors duration-200`}>
+            <button className={`font-sans text-[11px] font-semibold uppercase tracking-widest ${textColor} px-5 py-2.5 bg-transparent hover:bg-brand-cta/20 transition-colors duration-200`}>
               Contact us
             </button>
             <div className="absolute right-0 top-full w-40 bg-brand-bg shadow-[0_8px_32px_rgba(45,23,15,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
