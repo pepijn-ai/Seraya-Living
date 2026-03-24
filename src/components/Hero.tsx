@@ -52,8 +52,8 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
       {/* Proof points — anchored above inquiry bar */}
       <div className="relative z-10 grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-x-8 gap-y-2 px-6 pb-8">
         {proofPoints.map((point, i) => (
-          <span key={point} className="md:flex md:items-center md:gap-8">
-            <span className="font-sans text-sm md:text-base text-white/90 text-center block">{point}</span>
+          <span key={point} className="block text-center md:flex md:items-center md:gap-8">
+            <span className="font-sans text-sm md:text-base text-white/90">{point}</span>
             {i < proofPoints.length - 1 && (
               <span className="hidden md:inline text-white/30 text-base">·</span>
             )}
