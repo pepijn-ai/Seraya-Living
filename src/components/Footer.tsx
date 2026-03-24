@@ -5,7 +5,7 @@ const WA_URL =
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-body text-white py-12">
+    <footer className="bg-brand-body text-white py-12 pb-36 md:pb-12">
       <div className="max-w-[1400px] mx-auto px-3 md:px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           {/* Logo */}
