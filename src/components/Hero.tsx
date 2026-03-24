@@ -9,7 +9,7 @@ const HERO_IMAGE = getCloudinaryUrl(
 
 const proofPoints = [
   "Flexible lease terms",
-  "Everything included",
+  "All-inclusive",
   "Prime locations",
   "Concierge support",
 ];
@@ -50,9 +50,9 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
       </div>
 
       {/* Proof points — anchored above inquiry bar */}
-      <div className="relative z-10 flex flex-col items-center gap-2 md:flex-row md:flex-wrap md:justify-center md:gap-x-8 px-6 pb-8">
+      <div className="relative z-10 grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-x-6 gap-y-2 px-8 pb-8">
         {proofPoints.map((point, i) => (
-          <span key={point} className="block text-center md:flex md:items-center md:gap-8">
+          <span key={point} className="block md:flex md:items-center md:gap-8">
             <span className="font-sans text-sm md:text-base text-white/90">{point}</span>
             {i < proofPoints.length - 1 && (
               <span className="hidden md:inline text-white/30 text-base">·</span>
