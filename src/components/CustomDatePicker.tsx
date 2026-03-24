@@ -143,7 +143,7 @@ export default function CustomDatePicker({
           ))}
         </div>
 
-        <div className="grid grid-cols-7 gap-y-1">
+        <div className="grid grid-cols-7 gap-y-1" style={{ gridTemplateRows: "repeat(6, 2rem)" }}>
           {cells.map((day, i) => {
             if (!day) return <div key={i} />;
             const selected = isSelected(day, year, month);
