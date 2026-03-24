@@ -48,10 +48,10 @@ export default function Navbar({ transparent = false }: NavbarProps) {
           </a>
 
           <div className="relative group">
-            <button className={`font-sans text-[11px] uppercase tracking-widest ${textColor} hover:opacity-50 transition-opacity duration-200`}>
-              Contact
+            <button className="font-sans text-[11px] uppercase tracking-widest text-white bg-brand-cta px-5 py-2.5 hover:bg-[#3D2710] transition-colors duration-200">
+              Contact us
             </button>
-            <div className="absolute right-0 top-full mt-2 w-40 bg-brand-bg shadow-[0_8px_32px_rgba(45,23,15,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+            <div className="absolute right-0 top-full w-40 bg-brand-bg shadow-[0_8px_32px_rgba(45,23,15,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
               <a
                 href={WA_URL}
                 target="_blank"
