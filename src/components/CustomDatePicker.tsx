@@ -241,7 +241,7 @@ export default function CustomDatePicker({
           }}
         >
           {/* Mobile: single month */}
-          <div className="md:hidden p-5 w-72">
+          <div className="md:hidden p-5 w-full">
             {renderMonthGrid(viewYear, viewMonth, true, true)}
             {todayShortcut}
           </div>

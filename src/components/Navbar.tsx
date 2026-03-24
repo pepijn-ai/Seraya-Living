@@ -56,13 +56,13 @@ export default function Navbar({ transparent = false }: NavbarProps) {
                 href={WA_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150"
+                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150 text-center"
               >
                 WhatsApp
               </a>
               <a
                 href="mailto:hello@serayastays.com"
-                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150"
+                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150 text-center"
               >
                 E-mail
               </a>
