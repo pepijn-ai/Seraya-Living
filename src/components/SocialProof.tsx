@@ -30,7 +30,7 @@ export default function SocialProof() {
           <div className="max-w-[1400px] w-full mx-auto px-3 md:px-6">
             <FadeIn>
               <blockquote className="max-w-xl">
-                <p className="font-serif text-2xl md:text-4xl font-medium text-white leading-snug mb-6">
+                <p className="font-serif text-xl md:text-4xl font-medium text-white leading-snug mb-6">
                   &ldquo;Seraya provides all the highlights of a hotel booking within the unmatched comfort of a self-contained residence.&rdquo;
                 </p>
                 <cite className="font-sans text-[11px] uppercase tracking-[0.2em] text-white/70 not-italic">
