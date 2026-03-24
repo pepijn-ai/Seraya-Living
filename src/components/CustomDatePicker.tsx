@@ -8,7 +8,6 @@ interface CustomDatePickerProps {
   onChange: (value: string) => void;
   placeholder?: string;
   inline?: boolean;
-  fullWidth?: boolean; // calendar spans nearest relative ancestor
 }
 
 const MONTHS = [
@@ -45,7 +44,6 @@ export default function CustomDatePicker({
   onChange,
   placeholder = "Select date",
   inline = false,
-  fullWidth = false,
 }: CustomDatePickerProps) {
   const today = new Date();
   const [open, setOpen] = useState(false);
@@ -208,7 +206,7 @@ export default function CustomDatePicker({
   }
 
   return (
-    <div ref={ref} className={`${fullWidth ? "" : "relative "}w-full`}>
+    <div ref={ref} className="relative w-full">
       <button
         type="button"
         onClick={() => {
@@ -234,7 +232,7 @@ export default function CustomDatePicker({
 
       {open && (
         <div
-          className={`absolute ${openUpward ? "bottom-full mb-1" : "top-full mt-1"} left-0 ${fullWidth ? "right-0" : ""} bg-brand-bg z-50`}
+          className={`absolute ${openUpward ? "bottom-full mb-1" : "top-full mt-1"} left-0 bg-brand-bg z-50`}
           style={{
             border: "1px solid rgba(199, 117, 87, 0.3)",
             boxShadow: "0 8px 32px rgba(45, 23, 15, 0.12)",
