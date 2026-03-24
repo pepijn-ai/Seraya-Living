@@ -42,7 +42,7 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
       {/* Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-6 text-center pt-20">
         <h1 className="font-serif text-4xl md:text-6xl font-medium text-white leading-tight max-w-3xl">
-          A new rhythm of living.
+          A new rhythm of living
         </h1>
         <p className="mt-4 font-sans text-lg md:text-xl text-white/90">
           Extended stays in fully serviced Dubai residences.
