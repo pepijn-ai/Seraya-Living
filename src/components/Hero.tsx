@@ -4,7 +4,7 @@ import InquiryBar, { InquiryState } from "./InquiryBar";
 
 const HERO_IMAGE = getCloudinaryUrl(
   "seraya-hero-compressed_h0j3rr",
-  { width: 2560 }
+  { width: 2560, quality: "auto:best" }
 );
 
 const proofPoints = [

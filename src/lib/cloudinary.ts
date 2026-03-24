@@ -3,10 +3,11 @@ interface CloudinaryOptions {
   height?: number;
   crop?: string;
   gravity?: string;
+  quality?: string;
 }
 
 export function getCloudinaryUrl(publicId: string, options: CloudinaryOptions = {}): string {
-  const { width, height, crop = "fill", gravity = "auto" } = options;
+  const { width, height, crop = "fill", gravity = "auto", quality = "auto" } = options;
 
   // URL-encode special characters in public IDs
   const encoded = publicId
@@ -19,7 +20,7 @@ export function getCloudinaryUrl(publicId: string, options: CloudinaryOptions = 
     )
     .join("/");
 
-  const transforms = ["f_auto", "q_auto"];
+  const transforms = ["f_auto", `q_${quality}`];
   if (width) transforms.push(`w_${width}`);
   if (height) transforms.push(`h_${height}`);
   if (width || height) {
