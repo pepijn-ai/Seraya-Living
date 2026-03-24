@@ -55,7 +55,7 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
           <span key={point} className="flex items-center gap-3">
             <span className="font-sans text-[10px] uppercase tracking-widest text-white/70">{point}</span>
             {i < proofPoints.length - 1 && (
-              <span className="text-brand-accent text-[10px]">·</span>
+              <span className="hidden md:inline text-brand-accent text-[10px]">·</span>
             )}
           </span>
         ))}
