@@ -19,7 +19,7 @@ export default function ApartmentCard({ apartment, aspectClass }: ApartmentCardP
       <div className="pt-4 pb-2">
         {/* Name + price row */}
         <div className="flex items-baseline gap-2">
-          <span className="font-serif text-xl font-medium text-brand-heading">
+          <span className="font-serif text-xl font-semibold text-brand-heading">
             {name}
           </span>
           <span className="flex-1 border-b border-dotted border-brand-body/30 mb-1" />
