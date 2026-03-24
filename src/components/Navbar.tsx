@@ -47,21 +47,26 @@ export default function Navbar({ transparent = false }: NavbarProps) {
             <LogoImage width={120} height={44} invertToWhite={isTransparent} />
           </a>
 
-          <div className="flex items-center gap-6">
-            <a
-              href={WA_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`font-sans text-sm ${textColor} hover:opacity-70 transition-opacity`}
-            >
-              WhatsApp
-            </a>
-            <a
-              href="mailto:hello@serayastays.com"
-              className={`font-sans text-sm ${textColor} hover:opacity-70 transition-opacity`}
-            >
-              E-mail
-            </a>
+          <div className="relative group">
+            <button className={`font-sans text-sm ${textColor} hover:opacity-70 transition-opacity`}>
+              Contact
+            </button>
+            <div className="absolute right-0 top-full mt-2 w-40 bg-brand-bg shadow-[0_8px_32px_rgba(45,23,15,0.12)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <a
+                href={WA_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150"
+              >
+                WhatsApp
+              </a>
+              <a
+                href="mailto:hello@serayastays.com"
+                className="block px-4 py-3 font-sans text-sm text-brand-body hover:bg-brand-bg-alt transition-colors duration-150"
+              >
+                E-mail
+              </a>
+            </div>
           </div>
         </div>
 
