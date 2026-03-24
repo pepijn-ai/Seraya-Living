@@ -10,9 +10,12 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
           <p className="font-sans text-[10px] uppercase tracking-widest text-brand-accent mb-4">
             A selection of our residences
           </p>
-          <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-12">
+          <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-4">
             Crafted for extended living
           </h2>
+          <p className="font-sans text-sm text-brand-body/50 mb-12">
+            50+ residences across Dubai — one to four bedrooms.
+          </p>
         </FadeIn>
 
         {/* Top row — 3 equal */}
@@ -34,10 +37,7 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
         </div>
 
         <FadeIn>
-          <div className="mt-12 flex flex-col items-center gap-4">
-            <p className="font-sans text-sm text-brand-body/60 text-center">
-              50+ residences across Dubai — one to four bedrooms.
-            </p>
+          <div className="mt-12 flex justify-center">
             <button
               onClick={onInquiryCTA}
               className="inline-flex items-center gap-3 bg-brand-cta text-white font-sans font-medium text-sm px-8 py-4 hover:bg-[#3D2710] transition-colors duration-200"
