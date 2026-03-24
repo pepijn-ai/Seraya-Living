@@ -238,7 +238,7 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
 // ─── Shared styles ────────────────────────────────────────────────────────────
 
 const label = "block font-sans text-[10px] font-medium text-brand-body/50 uppercase tracking-widest mb-1.5";
-const input = "w-full bg-white font-sans text-sm text-brand-body placeholder-brand-body/40 rounded-none px-4 py-3 outline-none focus:ring-1 focus:ring-brand-accent/50";
+const input = "w-full bg-white font-sans text-base text-brand-body placeholder-brand-body/40 rounded-none px-4 py-3 outline-none focus:ring-1 focus:ring-brand-accent/50";
 const inputStyle = { border: "1px solid rgba(199, 117, 87, 0.5)" };
 
 function Chip({
