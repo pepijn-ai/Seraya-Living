@@ -66,12 +66,12 @@ export default function Navbar({ transparent = false }: NavbarProps) {
         </div>
 
         {/* Mobile */}
-        <div className="flex md:hidden items-center justify-between h-14">
-          <a href="#" className="flex items-center">
+        <div className="relative flex md:hidden items-center justify-between h-14">
+          <a href="#" className="absolute left-1/2 -translate-x-1/2 flex items-center">
             <LogoImage width={90} height={34} invertToWhite={isTransparent} />
           </a>
 
-          <div className="flex items-center gap-3">
+          <div className="ml-auto flex items-center gap-3">
             <a
               href={WA_URL}
               target="_blank"

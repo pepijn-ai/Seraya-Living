@@ -31,7 +31,7 @@ export default function InquiryBar({ values, onChange, onCTA, sticky = false }: 
     >
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-stretch md:items-end justify-center gap-3">
         {/* Move-in date */}
-        <div className="flex flex-col flex-1 max-w-xs min-w-0">
+        <div className="flex flex-col flex-1 md:max-w-xs min-w-0">
           <span className="font-sans text-[10px] uppercase tracking-widest text-brand-body/50 mb-1 px-1">
             Move-in date
           </span>

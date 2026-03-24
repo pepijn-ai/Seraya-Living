@@ -50,7 +50,7 @@ export default function SerayaStudio() {
         </FadeIn>
 
         {/* Three product images */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
+        <div className="grid grid-cols-3 gap-3 md:gap-4">
           {PIECES.map((piece, i) => (
             <FadeIn key={i} delay={i * 80}>
               <div className="relative w-full overflow-hidden" style={{ aspectRatio: "1/1" }}>
@@ -59,7 +59,7 @@ export default function SerayaStudio() {
                   alt={piece.alt}
                   fill
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
+                  sizes="33vw"
                 />
               </div>
             </FadeIn>

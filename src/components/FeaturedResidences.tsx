@@ -35,7 +35,7 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
 
         <FadeIn>
           <div className="mt-12 flex flex-col items-center gap-4">
-            <p className="font-sans text-sm text-brand-body/60">
+            <p className="font-sans text-sm text-brand-body/60 text-center">
               50+ residences across Dubai — one to four-bedroom penthouses.
             </p>
             <button
