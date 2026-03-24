@@ -161,7 +161,7 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
 
   if (!open) return null;
 
-  const stepTitles = ["When are you moving?", "Your preferences", "Your details"];
+  const stepTitles = ["When are you moving?", "Your preferences", "Your details", "Review your inquiry"];
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
@@ -176,7 +176,7 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
           <div>
             {!submitted && (
               <p className="font-sans text-[10px] uppercase tracking-widest text-brand-body/40 mb-1">
-                Step {step + 1} of 3
+                Step {step + 1} of 4
               </p>
             )}
             <h2 className="font-serif text-2xl font-medium text-brand-heading">
@@ -195,7 +195,7 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
         {/* Progress bar */}
         {!submitted && (
           <div className="flex gap-1.5 px-8 mt-5 mb-7">
-            {[0, 1, 2].map((i) => (
+            {[0, 1, 2, 3].map((i) => (
               <div
                 key={i}
                 className={`h-0.5 flex-1 rounded-none transition-all duration-300 ${
@@ -220,11 +220,17 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
               onBack={() => setStep(0)}
               onNext={() => setStep(2)}
             />
-          ) : (
+          ) : step === 2 ? (
             <Step3
               form={form}
               set={set}
               onBack={() => setStep(1)}
+              onNext={() => setStep(3)}
+            />
+          ) : (
+            <Step4
+              form={form}
+              onBack={() => setStep(2)}
               onWhatsApp={handleWhatsApp}
               onEmail={handleEmail}
             />
@@ -476,14 +482,12 @@ function Step3({
   form,
   set,
   onBack,
-  onWhatsApp,
-  onEmail,
+  onNext,
 }: {
   form: FormData;
   set: <K extends keyof FormData>(f: K, v: FormData[K]) => void;
   onBack: () => void;
-  onWhatsApp: () => void;
-  onEmail: () => void;
+  onNext: () => void;
 }) {
   const canSubmit = form.name && form.email && form.whatsapp;
 
@@ -551,7 +555,87 @@ function Step3({
         />
       </div>
 
-      <div className="flex flex-col gap-3 mt-1">
+      <div className="flex gap-3 mt-1">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-1.5 font-sans text-sm text-brand-body/50 hover:text-brand-body transition-colors"
+        >
+          <ArrowLeft size={14} strokeWidth={1.5} /> Back
+        </button>
+        <button
+          onClick={onNext}
+          disabled={!canSubmit}
+          className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] disabled:opacity-40 transition-colors flex items-center justify-center gap-2"
+        >
+          Continue <span aria-hidden="true">→</span>
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 4 (Review) ──────────────────────────────────────────────────────────
+
+function Step4({
+  form,
+  onBack,
+  onWhatsApp,
+  onEmail,
+}: {
+  form: FormData;
+  onBack: () => void;
+  onWhatsApp: () => void;
+  onEmail: () => void;
+}) {
+  const MONTHS_LABEL = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  const fmt = (v: string) => {
+    if (!v) return "—";
+    const [y, m, d] = v.split("-");
+    return `${d} ${MONTHS_LABEL[parseInt(m) - 1]} ${y}`;
+  };
+
+  const stayLabel =
+    form.stayMode === "flexible"
+      ? "Flexible"
+      : form.stayMode === "months" && form.stayMonths
+      ? `${form.stayMonths} month${form.stayMonths > 1 ? "s" : ""}`
+      : form.moveOut
+      ? `Until ${fmt(form.moveOut)}`
+      : "Flexible";
+
+  const rows: { label: string; value: string }[] = [
+    { label: "Move-in", value: fmt(form.moveIn) || "Flexible" },
+    { label: "Duration", value: stayLabel },
+    { label: "Bedrooms", value: form.bedrooms.length > 0 ? form.bedrooms.join(", ") + " bed" : "Flexible" },
+    { label: "Area", value: form.areas.length > 0 ? form.areas.join(", ") : "Flexible" },
+    ...(form.budget ? [{ label: "Budget", value: `${form.currency} ${Number(form.budget).toLocaleString()}` }] : []),
+    ...(form.guests ? [{ label: "Guests", value: form.guests }] : []),
+    { label: "Name", value: form.name },
+    { label: "Email", value: form.email },
+    { label: "WhatsApp", value: form.whatsapp },
+    ...(form.callNumber ? [{ label: "Call", value: form.callNumber }] : []),
+  ];
+
+  return (
+    <div className="flex flex-col gap-6">
+      <div style={{ border: "1px solid rgba(199, 117, 87, 0.2)" }}>
+        {rows.map((row, i) => (
+          <div
+            key={row.label}
+            className={`flex justify-between gap-4 px-4 py-3 ${i > 0 ? "border-t" : ""}`}
+            style={i > 0 ? { borderColor: "rgba(199, 117, 87, 0.15)" } : {}}
+          >
+            <span className="font-sans text-[10px] uppercase tracking-widest text-brand-body/40 pt-0.5 flex-none">
+              {row.label}
+            </span>
+            <span className="font-sans text-sm text-brand-body text-right">
+              {row.value}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="flex flex-col gap-3">
         <div className="flex gap-3">
           <button
             onClick={onBack}
@@ -561,19 +645,14 @@ function Step3({
           </button>
           <button
             onClick={onWhatsApp}
-            disabled={!canSubmit}
-            className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] disabled:opacity-40 transition-colors flex items-center justify-center gap-2"
+            className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] transition-colors flex items-center justify-center gap-2"
           >
-            <svg viewBox="0 0 24 24" fill="currentColor" width="15" height="15" aria-hidden="true">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            Send on WhatsApp
+            Send inquiry <span aria-hidden="true">→</span>
           </button>
         </div>
         <button
           onClick={onEmail}
-          disabled={!canSubmit}
-          className="w-full text-center font-sans text-xs text-brand-body/40 hover:text-brand-body/70 disabled:opacity-40 transition-colors py-1"
+          className="w-full text-center font-sans text-xs text-brand-body/40 hover:text-brand-body/70 transition-colors py-1"
         >
           Or submit by email instead
         </button>
@@ -586,14 +665,14 @@ function Step3({
 
 function SuccessState({ onClose }: { onClose: () => void }) {
   return (
-    <div className="text-center py-6">
-      <div className="w-12 h-12 rounded-none bg-brand-bg-alt flex items-center justify-center mx-auto mb-6">
+    <div className="text-center py-8">
+      <div className="w-12 h-12 bg-brand-bg-alt flex items-center justify-center mx-auto mb-6">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="22" height="22" className="text-brand-heading">
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-      <p className="font-sans text-sm text-brand-body/70 max-w-xs mx-auto leading-relaxed mb-8">
-        Thank you — we&apos;ll send you a curated selection within 24 hours.
+      <p className="font-sans text-sm text-brand-body/60 max-w-xs mx-auto leading-relaxed mb-8">
+        Your inquiry has been received. We will review your preferences and be in contact shortly.
       </p>
       <button
         onClick={onClose}
