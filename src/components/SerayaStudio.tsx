@@ -98,23 +98,25 @@ export default function SerayaStudio() {
           </div>
 
           {/* Right: crossfading images */}
-          <div className="flex-1 relative">
-            {PIECES.map((piece, i) => (
-              <div
-                key={i}
-                className="absolute inset-0 transition-opacity duration-700 ease-in-out"
-                style={{ opacity: i === activeIndex ? 1 : 0 }}
-              >
-                <Image
-                  src={piece.src}
-                  alt={piece.alt}
-                  fill
-                  className="object-cover"
-                  sizes="58vw"
-                  priority={i === 0}
-                />
-              </div>
-            ))}
+          <div className="flex-1 flex items-center justify-center px-12 py-16">
+            <div className="relative w-full h-full" style={{ maxWidth: 420, maxHeight: "75vh" }}>
+              {PIECES.map((piece, i) => (
+                <div
+                  key={i}
+                  className="absolute inset-0 transition-opacity duration-700 ease-in-out"
+                  style={{ opacity: i === activeIndex ? 1 : 0 }}
+                >
+                  <Image
+                    src={piece.src}
+                    alt={piece.alt}
+                    fill
+                    className="object-cover"
+                    sizes="420px"
+                    priority={i === 0}
+                  />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
