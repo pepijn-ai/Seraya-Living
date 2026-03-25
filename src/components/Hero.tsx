@@ -45,7 +45,7 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
           A new rhythm of living
         </h1>
         <p className="mt-4 font-sans text-lg md:text-xl text-white/90">
-          Extended stays in fully serviced Dubai residences.
+          Extended stays in fully serviced Dubai residences
         </p>
       </div>
 
