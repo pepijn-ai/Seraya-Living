@@ -17,21 +17,6 @@ const CURRENCIES = [
   { label: "GBP", value: "GBP" },
 ];
 
-const COUNTRY_CODES = [
-  { label: "+971", value: "+971" },
-  { label: "+1",   value: "+1"   },
-  { label: "+44",  value: "+44"  },
-  { label: "+91",  value: "+91"  },
-  { label: "+33",  value: "+33"  },
-  { label: "+49",  value: "+49"  },
-  { label: "+61",  value: "+61"  },
-  { label: "+966", value: "+966" },
-  { label: "+974", value: "+974" },
-  { label: "+86",  value: "+86"  },
-  { label: "+7",   value: "+7"   },
-  { label: "+31",  value: "+31"  },
-  { label: "+41",  value: "+41"  },
-];
 
 function formatDate(value: string): string {
   if (!value) return "—";
@@ -73,7 +58,7 @@ function buildWAMessage(f: FormData): string {
     "",
     `Name: ${f.name}`,
     `Email: ${f.email}`,
-    f.callNumber ? `Call: ${f.callCC} ${f.callNumber}` : null,
+    f.callNumber ? `Call: ${f.callNumber}` : null,
   ]
     .filter((l) => l !== null)
     .join("\n");
@@ -94,9 +79,7 @@ interface FormData {
   name: string;
   email: string;
   callNumber: string;
-  callCC: string;
   whatsapp: string;
-  whatsappCC: string;
 }
 
 const defaultForm = (): FormData => ({
@@ -112,9 +95,7 @@ const defaultForm = (): FormData => ({
   name: "",
   email: "",
   callNumber: "",
-  callCC: "+971",
   whatsapp: "",
-  whatsappCC: "+971",
 });
 
 interface InquiryModalProps {
@@ -541,23 +522,14 @@ function Step3({
 
       <div>
         <p className={label}>Number to call (optional)</p>
-        <div className="flex gap-2">
-          <div className="w-24 flex-none">
-            <CustomSelect
-              value={form.callCC}
-              onChange={(v) => set("callCC", v)}
-              options={COUNTRY_CODES}
-            />
-          </div>
-          <input
-            type="tel"
-            value={form.callNumber}
-            onChange={(e) => set("callNumber", e.target.value)}
-            placeholder="50 123 4567"
-            className={`${input} flex-1 min-w-0`}
-            style={inputStyle}
-          />
-        </div>
+        <input
+          type="tel"
+          value={form.callNumber}
+          onChange={(e) => set("callNumber", e.target.value)}
+          placeholder="+971 50 123 4567"
+          className={input}
+          style={inputStyle}
+        />
       </div>
 
       <div>
@@ -566,31 +538,22 @@ function Step3({
           {form.callNumber && !form.whatsapp && (
             <button
               type="button"
-              onClick={() => { set("whatsapp", form.callNumber); set("whatsappCC", form.callCC); }}
+              onClick={() => set("whatsapp", form.callNumber)}
               className="font-sans text-xs text-brand-accent hover:text-brand-heading transition-colors"
             >
               Same as call number ↑
             </button>
           )}
         </div>
-        <div className="flex gap-2">
-          <div className="w-24 flex-none">
-            <CustomSelect
-              value={form.whatsappCC}
-              onChange={(v) => set("whatsappCC", v)}
-              options={COUNTRY_CODES}
-            />
-          </div>
-          <input
-            type="tel"
-            required
-            value={form.whatsapp}
-            onChange={(e) => set("whatsapp", e.target.value)}
-            placeholder="50 123 4567"
-            className={`${input} flex-1 min-w-0`}
-            style={inputStyle}
-          />
-        </div>
+        <input
+          type="tel"
+          required
+          value={form.whatsapp}
+          onChange={(e) => set("whatsapp", e.target.value)}
+          placeholder="+971 50 123 4567"
+          className={input}
+          style={inputStyle}
+        />
       </div>
 
       <div className="flex gap-3 mt-1">
@@ -650,8 +613,8 @@ function Step4({
     ...(form.guests ? [{ label: "Guests", value: form.guests }] : []),
     { label: "Name", value: form.name },
     { label: "Email", value: form.email },
-    { label: "WhatsApp", value: `${form.whatsappCC} ${form.whatsapp}` },
-    ...(form.callNumber ? [{ label: "Call", value: `${form.callCC} ${form.callNumber}` }] : []),
+    { label: "WhatsApp", value: form.whatsapp },
+    ...(form.callNumber ? [{ label: "Call", value: form.callNumber }] : []),
   ];
 
   return (
