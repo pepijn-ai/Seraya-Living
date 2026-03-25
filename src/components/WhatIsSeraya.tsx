@@ -18,7 +18,7 @@ const USPs = [
   {
     eyebrow: "Fully serviced",
     title: "Entirely looked after",
-    body: "Utilities, high-speed WiFi, and regular housekeeping are woven into a single monthly rate. Your dedicated concierge is on hand whenever you need them.",
+    body: "Utilities, high-speed WiFi, and regular housekeeping are woven into a single monthly rate. Your dedicated concierge is on hand for lifestyle arrangements whenever you need them.",
     image: getCloudinaryUrl("Seraya_Living__Gemini_3_Nano_Banana_Pro__2026-03-24_12-25-09_iupbu0", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
   },
 ];
