@@ -12,7 +12,7 @@ export default function InquiryCTA({ onCTA }: { onCTA: () => void }) {
             Find your residence in Dubai.
           </h2>
           <p className="font-sans text-sm text-brand-body/60 max-w-sm mx-auto mb-10 leading-relaxed">
-            Tell us what you need and we&apos;ll send you a curated selection within 24 hours.
+            Tell us what you need and we&apos;ll be in touch shortly with a curated selection.
           </p>
           <button
             onClick={onCTA}
