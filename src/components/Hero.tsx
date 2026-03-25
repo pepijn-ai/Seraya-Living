@@ -7,6 +7,8 @@ const HERO_IMAGE = getCloudinaryUrl(
   { width: 2560, quality: "auto:best" }
 );
 
+const HERO_VIDEO = "https://res.cloudinary.com/dce1arrhg/video/upload/f_auto,q_auto/Seraya_Living__Kling_3_2026-03-25_20-29-07_cciufk.mp4";
+
 const proofPoints = [
   "Flexible lease terms",
   "All-inclusive",
@@ -26,7 +28,7 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
       id="hero"
       className="relative min-h-screen flex flex-col"
     >
-      {/* Background image */}
+      {/* Background video with image fallback */}
       <Image
         src={HERO_IMAGE}
         alt="Seraya Living luxury apartment"
@@ -35,6 +37,15 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
         priority
         sizes="100vw"
       />
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src={HERO_VIDEO} type="video/mp4" />
+      </video>
 
       {/* Dark gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/50" />
