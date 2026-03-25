@@ -145,23 +145,36 @@ export default function SerayaStudio() {
 
         {/* Horizontal scroll-snap carousel */}
         <div
-          className="flex gap-3 overflow-x-auto snap-x snap-mandatory pl-3 pr-6 pb-2"
+          className="flex gap-3 overflow-x-auto snap-x snap-mandatory pl-3 pb-2"
           style={{ scrollbarWidth: "none" }}
         >
           {PIECES.map((piece, i) => (
             <div
               key={i}
-              className="snap-center flex-none relative overflow-hidden"
-              style={{ width: "85vw", aspectRatio: "4/3" }}
+              className="snap-start flex-none relative overflow-hidden"
+              style={{ width: "75vw", aspectRatio: "4/3" }}
             >
               <Image
                 src={piece.src}
                 alt={piece.alt}
                 fill
                 className="object-contain"
-                sizes="85vw"
+                sizes="75vw"
               />
             </div>
+          ))}
+          {/* Spacer so last card doesn't sit flush right */}
+          <div className="flex-none w-3" />
+        </div>
+
+        {/* Dots */}
+        <div className="flex items-center justify-center gap-2 mt-4">
+          {PIECES.map((_, i) => (
+            <div
+              key={i}
+              className="rounded-full"
+              style={{ width: 5, height: 5, background: i === 0 ? "rgba(255,255,255,0.7)" : "rgba(255,255,255,0.2)" }}
+            />
           ))}
         </div>
       </div>
