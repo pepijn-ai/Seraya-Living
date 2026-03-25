@@ -6,23 +6,23 @@ import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 const PIECES = [
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_r6tg69r6tg69r6tg_ral8bk", { width: 1000, height: 1200, crop: "fill", gravity: "auto" }),
+    src: getCloudinaryUrl("Gemini_Generated_Image_r6tg69r6tg69r6tg_ral8bk", { width: 1200 }),
     alt: "Seraya Studio — marble coffee table",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_2hf0ru2hf0ru2hf0_nmz0ny", { width: 1000, height: 1200, crop: "fill", gravity: "auto" }),
+    src: getCloudinaryUrl("Gemini_Generated_Image_2hf0ru2hf0ru2hf0_nmz0ny", { width: 1200 }),
     alt: "Seraya Studio — stone side table",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_q01mqnq01mqnq01m_kjzzdk", { width: 1000, height: 1200, crop: "fill", gravity: "auto" }),
+    src: getCloudinaryUrl("Gemini_Generated_Image_q01mqnq01mqnq01m_kjzzdk", { width: 1200 }),
     alt: "Seraya Studio — sofa",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_spzk7mspzk7mspzk_qdkjld", { width: 1000, height: 1200, crop: "fill", gravity: "auto" }),
+    src: getCloudinaryUrl("Gemini_Generated_Image_spzk7mspzk7mspzk_qdkjld", { width: 1200 }),
     alt: "Seraya Studio — piece 4",
   },
   {
-    src: getCloudinaryUrl("Seraya_Studio__Gemini_3_Nano_Banana_Pro__2026-03-20_13-14-44_1_kb1hk5", { width: 1000, height: 1200, crop: "fill", gravity: "auto" }),
+    src: getCloudinaryUrl("Seraya_Studio__Gemini_3_Nano_Banana_Pro__2026-03-20_13-14-44_1_kb1hk5", { width: 1200 }),
     alt: "Seraya Studio — piece 5",
   },
 ];
@@ -99,7 +99,7 @@ export default function SerayaStudio() {
 
           {/* Right: crossfading images */}
           <div className="flex-1 flex items-center justify-center px-12 py-12">
-            <div className="relative" style={{ height: "60vh", aspectRatio: "4/5" }}>
+            <div className="relative" style={{ width: "50vh", height: "50vh" }}>
               {PIECES.map((piece, i) => (
                 <div
                   key={i}
