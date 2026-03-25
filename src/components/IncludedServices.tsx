@@ -15,7 +15,7 @@ const groups = [
     items: [
       "Monthly housekeeping",
       "Dedicated concierge",
-      "24/7 WhatsApp support",
+      "24/7 support",
       "On-call maintenance",
     ],
   },
