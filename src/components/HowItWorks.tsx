@@ -9,7 +9,7 @@ const steps = [
   {
     number: "02",
     title: "Receive curated options",
-    body: "We handpick residences matched to your needs.",
+    body: "We match your preferences to the right residence within our collection.",
   },
   {
     number: "03",
