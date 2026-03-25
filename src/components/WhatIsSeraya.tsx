@@ -6,7 +6,7 @@ const USPs = [
   {
     eyebrow: "Flexible stays",
     title: "Stay on your terms",
-    body: "No lease, no yearly commitment. Stay for a month, a season, or as long as you need — and pay month by month.",
+    body: "No long-term commitment required. Stay for a month, a season, or longer — with lease terms tailored to your timeline.",
     image: getCloudinaryUrl("Seraya_Living__Gemini_3_Nano_Banana_Pro_2026-03-23_21-56-36_50_wxydpr", { width: 800, height: 1000, crop: "fill", gravity: "auto" }),
   },
   {
