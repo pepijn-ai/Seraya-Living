@@ -7,7 +7,7 @@ const HERO_IMAGE = getCloudinaryUrl(
   { width: 2560, quality: "auto:best" }
 );
 
-const HERO_VIDEO = "https://res.cloudinary.com/dce1arrhg/video/upload/f_auto,q_auto/Seraya_Living__Kling_3_2026-03-25_20-29-07_cciufk.mp4";
+const HERO_VIDEO = "https://res.cloudinary.com/dce1arrhg/video/upload/f_auto,q_auto:best/Seraya_Living__Kling_3_2026-03-25_20-29-07_cciufk.mp4";
 
 const proofPoints = [
   "Flexible lease terms",
