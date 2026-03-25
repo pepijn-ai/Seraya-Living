@@ -152,14 +152,14 @@ export default function SerayaStudio() {
             <div
               key={i}
               className="snap-center flex-none relative overflow-hidden"
-              style={{ width: "72vw", aspectRatio: "3/4" }}
+              style={{ width: "85vw", aspectRatio: "4/3" }}
             >
               <Image
                 src={piece.src}
                 alt={piece.alt}
                 fill
-                className="object-cover"
-                sizes="72vw"
+                className="object-contain"
+                sizes="85vw"
               />
             </div>
           ))}
