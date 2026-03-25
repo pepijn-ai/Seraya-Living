@@ -8,13 +8,29 @@ import type { InquiryState } from "./InquiryBar";
 
 const WA_NUMBER = "13322841002";
 const MONTHS = [1, 2, 3, 6, 9, 12];
-const BEDROOMS = ["1", "2", "3", "4+"];
+const BEDROOMS = ["1", "2", "3", "4"];
 const AREAS = ["Downtown", "Business Bay", "Marina", "Creek Harbour"];
 const CURRENCIES = [
   { label: "AED", value: "AED" },
   { label: "USD", value: "USD" },
   { label: "EUR", value: "EUR" },
   { label: "GBP", value: "GBP" },
+];
+
+const COUNTRY_CODES = [
+  { label: "+971", value: "+971" },
+  { label: "+1",   value: "+1"   },
+  { label: "+44",  value: "+44"  },
+  { label: "+91",  value: "+91"  },
+  { label: "+33",  value: "+33"  },
+  { label: "+49",  value: "+49"  },
+  { label: "+61",  value: "+61"  },
+  { label: "+966", value: "+966" },
+  { label: "+974", value: "+974" },
+  { label: "+86",  value: "+86"  },
+  { label: "+7",   value: "+7"   },
+  { label: "+31",  value: "+31"  },
+  { label: "+41",  value: "+41"  },
 ];
 
 function formatDate(value: string): string {
@@ -57,7 +73,7 @@ function buildWAMessage(f: FormData): string {
     "",
     `Name: ${f.name}`,
     `Email: ${f.email}`,
-    f.callNumber ? `Call: ${f.callNumber}` : null,
+    f.callNumber ? `Call: ${f.callCC} ${f.callNumber}` : null,
   ]
     .filter((l) => l !== null)
     .join("\n");
@@ -78,7 +94,9 @@ interface FormData {
   name: string;
   email: string;
   callNumber: string;
+  callCC: string;
   whatsapp: string;
+  whatsappCC: string;
 }
 
 const defaultForm = (): FormData => ({
@@ -94,7 +112,9 @@ const defaultForm = (): FormData => ({
   name: "",
   email: "",
   callNumber: "",
+  callCC: "+971",
   whatsapp: "",
+  whatsappCC: "+971",
 });
 
 interface InquiryModalProps {
@@ -521,14 +541,23 @@ function Step3({
 
       <div>
         <p className={label}>Number to call (optional)</p>
-        <input
-          type="tel"
-          value={form.callNumber}
-          onChange={(e) => set("callNumber", e.target.value)}
-          placeholder="+971 XX XXX XXXX"
-          className={input}
-          style={inputStyle}
-        />
+        <div className="flex gap-2">
+          <div className="w-24 flex-none">
+            <CustomSelect
+              value={form.callCC}
+              onChange={(v) => set("callCC", v)}
+              options={COUNTRY_CODES}
+            />
+          </div>
+          <input
+            type="tel"
+            value={form.callNumber}
+            onChange={(e) => set("callNumber", e.target.value)}
+            placeholder="50 123 4567"
+            className={`${input} flex-1 min-w-0`}
+            style={inputStyle}
+          />
+        </div>
       </div>
 
       <div>
@@ -537,22 +566,31 @@ function Step3({
           {form.callNumber && !form.whatsapp && (
             <button
               type="button"
-              onClick={() => set("whatsapp", form.callNumber)}
+              onClick={() => { set("whatsapp", form.callNumber); set("whatsappCC", form.callCC); }}
               className="font-sans text-xs text-brand-accent hover:text-brand-heading transition-colors"
             >
               Same as call number ↑
             </button>
           )}
         </div>
-        <input
-          type="tel"
-          required
-          value={form.whatsapp}
-          onChange={(e) => set("whatsapp", e.target.value)}
-          placeholder="+971 XX XXX XXXX"
-          className={input}
-          style={inputStyle}
-        />
+        <div className="flex gap-2">
+          <div className="w-24 flex-none">
+            <CustomSelect
+              value={form.whatsappCC}
+              onChange={(v) => set("whatsappCC", v)}
+              options={COUNTRY_CODES}
+            />
+          </div>
+          <input
+            type="tel"
+            required
+            value={form.whatsapp}
+            onChange={(e) => set("whatsapp", e.target.value)}
+            placeholder="50 123 4567"
+            className={`${input} flex-1 min-w-0`}
+            style={inputStyle}
+          />
+        </div>
       </div>
 
       <div className="flex gap-3 mt-1">
@@ -612,8 +650,8 @@ function Step4({
     ...(form.guests ? [{ label: "Guests", value: form.guests }] : []),
     { label: "Name", value: form.name },
     { label: "Email", value: form.email },
-    { label: "WhatsApp", value: form.whatsapp },
-    ...(form.callNumber ? [{ label: "Call", value: form.callNumber }] : []),
+    { label: "WhatsApp", value: `${form.whatsappCC} ${form.whatsapp}` },
+    ...(form.callNumber ? [{ label: "Call", value: `${form.callCC} ${form.callNumber}` }] : []),
   ];
 
   return (
@@ -665,18 +703,26 @@ function Step4({
 
 function SuccessState({ onClose }: { onClose: () => void }) {
   return (
-    <div className="text-center py-8">
-      <div className="w-12 h-12 bg-brand-bg-alt flex items-center justify-center mx-auto mb-6">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="22" height="22" className="text-brand-heading">
+    <div className="flex flex-col items-center text-center py-6">
+      <div
+        className="w-14 h-14 flex items-center justify-center mb-6"
+        style={{ border: "1px solid rgba(199, 117, 87, 0.4)", background: "rgba(199, 117, 87, 0.06)" }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="20" height="20" className="text-brand-accent">
           <polyline points="20 6 9 17 4 12" />
         </svg>
       </div>
-      <p className="font-sans text-sm text-brand-body/60 max-w-xs mx-auto leading-relaxed mb-8">
-        Your inquiry has been received. We will review your preferences and be in contact shortly.
+
+      <p className="font-sans text-sm text-brand-body/70 max-w-[260px] leading-relaxed mb-2">
+        Your inquiry has been received. We will review your preferences and reach out shortly.
       </p>
+      <p className="font-sans text-xs text-brand-body/40 mb-10">
+        Expect to hear from us within 24 hours.
+      </p>
+
       <button
         onClick={onClose}
-        className="font-sans text-sm text-brand-heading hover:text-brand-accent transition-colors"
+        className="w-full bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] transition-colors"
       >
         Back to Seraya Living
       </button>
