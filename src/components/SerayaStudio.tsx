@@ -98,8 +98,8 @@ export default function SerayaStudio() {
           </div>
 
           {/* Right: crossfading images */}
-          <div className="flex-1 flex items-center justify-center px-12 py-16">
-            <div className="relative w-full h-full" style={{ maxWidth: 420, maxHeight: "75vh" }}>
+          <div className="flex-1 flex items-center justify-center px-12 py-12">
+            <div className="relative" style={{ height: "70vh", aspectRatio: "4/5" }}>
               {PIECES.map((piece, i) => (
                 <div
                   key={i}
