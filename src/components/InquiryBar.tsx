@@ -75,27 +75,20 @@ export function InquiryBarStickyController({
   onCTA?: () => void;
 }) {
   const [heroVisible, setHeroVisible] = useState(true);
-  const [formVisible, setFormVisible] = useState(false);
 
   useEffect(() => {
     const heroEl = document.getElementById("hero");
-    const formEl = document.getElementById("inquiry-form");
-    if (!heroEl || !formEl) return;
+    if (!heroEl) return;
 
     const heroObs = new IntersectionObserver(
       ([e]) => setHeroVisible(e.isIntersecting),
       { threshold: 0 }
     );
-    const formObs = new IntersectionObserver(
-      ([e]) => setFormVisible(e.isIntersecting),
-      { threshold: 0 }
-    );
 
     heroObs.observe(heroEl);
-    formObs.observe(formEl);
-    return () => { heroObs.disconnect(); formObs.disconnect(); };
+    return () => heroObs.disconnect();
   }, []);
 
-  if (heroVisible || formVisible) return null;
+  if (heroVisible) return null;
   return <InquiryBar values={values} onChange={onChange} onCTA={onCTA} sticky />;
 }
