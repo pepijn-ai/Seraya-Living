@@ -21,9 +21,9 @@ export const metadata: Metadata = {
   description:
     "Fully serviced luxury apartments in Dubai for extended stays of 1–12 months. No yearly lease required. Prime locations, utilities included, concierge support.",
   openGraph: {
-    title: "Seraya Living — Fully serviced residences for extended stays in Dubai",
+    title: "Seraya Living",
     description:
-      "Fully serviced luxury apartments in Dubai for extended stays of 1–12 months.",
+      "Fully serviced residences for extended stays in Dubai.",
     siteName: "Seraya Living",
     images: [
       {
