@@ -17,20 +17,20 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Seraya Living — Flexible Luxury Living in Dubai",
+  title: "Seraya Living — Extended stays in fully serviced residences in Dubai",
   description:
     "Fully serviced luxury apartments in Dubai for extended stays of 1–12 months. No yearly lease required. Prime locations, utilities included, concierge support.",
   openGraph: {
-    title: "Seraya Living — Flexible Luxury Living in Dubai",
+    title: "Seraya Living — Extended stays in fully serviced residences in Dubai",
     description:
       "Fully serviced luxury apartments in Dubai for extended stays of 1–12 months.",
     siteName: "Seraya Living",
     images: [
       {
-        url: "https://res.cloudinary.com/dce1arrhg/image/upload/w_1200,h_630,c_fill,g_auto,f_auto,q_auto/seraya/units/unit-47/listing/web/Downtown%20Views%20II_T1_1901%28Web%29-51",
+        url: "https://living.serayastays.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Seraya Living — Flexible Luxury Living in Dubai",
+        alt: "Seraya Living — Extended stays in fully serviced residences in Dubai",
       },
     ],
   },
