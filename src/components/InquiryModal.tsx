@@ -293,6 +293,7 @@ function Step1({
           value={form.moveIn}
           onChange={(v) => set("moveIn", v)}
           placeholder="Select date"
+          inline
         />
       </div>
 
