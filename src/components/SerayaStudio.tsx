@@ -2,33 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { getCloudinaryUrl } from "@/lib/cloudinary";
+
+const studioUrl = (publicId: string) =>
+  `https://res.cloudinary.com/dce1arrhg/image/upload/f_auto,q_auto,w_1200,h_1200,c_pad,b_rgb:2D170F/${publicId}`;
 
 const PIECES = [
-  {
-    src: getCloudinaryUrl("coffee-table-white_tpi4zf", { width: 1200 }),
-    alt: "Seraya Studio — white marble coffee table",
-  },
-  {
-    src: getCloudinaryUrl("seraya-studio-room_plxzdj", { width: 1200 }),
-    alt: "Seraya Studio — room",
-  },
-  {
-    src: getCloudinaryUrl("coffee-table-dark_j7khsa", { width: 1200 }),
-    alt: "Seraya Studio — dark travertine coffee table",
-  },
-  {
-    src: getCloudinaryUrl("seraya-side-table_white-marble_clean_h80rcc", { width: 1200 }),
-    alt: "Seraya Studio — white marble side table",
-  },
-  {
-    src: getCloudinaryUrl("seraya-side-table_beige-travertine_clean_fvqwxq", { width: 1200 }),
-    alt: "Seraya Studio — beige travertine side table",
-  },
-  {
-    src: getCloudinaryUrl("seraya-side-table_dark-travertine_clean_yepejy", { width: 1200 }),
-    alt: "Seraya Studio — dark travertine side table",
-  },
+  { src: studioUrl("coffee-table-white_tpi4zf"), alt: "Seraya Studio — white marble coffee table" },
+  { src: studioUrl("seraya-studio-room_plxzdj"), alt: "Seraya Studio — room" },
+  { src: studioUrl("coffee-table-dark_j7khsa"), alt: "Seraya Studio — dark travertine coffee table" },
+  { src: studioUrl("seraya-side-table_white-marble_clean_h80rcc"), alt: "Seraya Studio — white marble side table" },
+  { src: studioUrl("seraya-side-table_beige-travertine_clean_fvqwxq"), alt: "Seraya Studio — beige travertine side table" },
+  { src: studioUrl("seraya-side-table_dark-travertine_clean_yepejy"), alt: "Seraya Studio — dark travertine side table" },
 ];
 
 export default function SerayaStudio() {
