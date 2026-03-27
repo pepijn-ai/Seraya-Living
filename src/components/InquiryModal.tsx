@@ -648,26 +648,18 @@ function Step4({
         ))}
       </div>
 
-      <div className="flex flex-col gap-3">
-        <div className="flex gap-3">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-1.5 font-sans text-sm text-brand-body/50 hover:text-brand-body transition-colors"
-          >
-            <ArrowLeft size={14} strokeWidth={1.5} /> Back
-          </button>
-          <button
-            onClick={onWhatsApp}
-            className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] transition-colors flex items-center justify-center gap-2"
-          >
-            Send inquiry <span aria-hidden="true">→</span>
-          </button>
-        </div>
+      <div className="flex gap-3">
+        <button
+          onClick={onBack}
+          className="flex items-center gap-1.5 font-sans text-sm text-brand-body/50 hover:text-brand-body transition-colors"
+        >
+          <ArrowLeft size={14} strokeWidth={1.5} /> Back
+        </button>
         <button
           onClick={onEmail}
-          className="w-full text-center font-sans text-xs text-brand-body/40 hover:text-brand-body/70 transition-colors py-1"
+          className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] transition-colors flex items-center justify-center gap-2"
         >
-          Or submit by email instead
+          Submit <span aria-hidden="true">→</span>
         </button>
       </div>
     </div>
@@ -688,11 +680,8 @@ function SuccessState({ onClose }: { onClose: () => void }) {
         </svg>
       </div>
 
-      <p className="font-sans text-sm text-brand-body/70 max-w-[260px] leading-relaxed mb-2">
-        Your inquiry has been received. We will review your preferences and reach out shortly.
-      </p>
-      <p className="font-sans text-xs text-brand-body/40 mb-10">
-        Expect to hear from us within 24 hours.
+      <p className="font-sans text-sm text-brand-body/70 max-w-[260px] leading-relaxed mb-10">
+        Your inquiry has been received. One of our team will be in touch with you soon.
       </p>
 
       <button
