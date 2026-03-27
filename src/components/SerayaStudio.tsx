@@ -6,24 +6,28 @@ import { getCloudinaryUrl } from "@/lib/cloudinary";
 
 const PIECES = [
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_r6tg69r6tg69r6tg_ral8bk", { width: 1200 }),
-    alt: "Seraya Studio — marble coffee table",
+    src: getCloudinaryUrl("coffee-table-white_tpi4zf", { width: 1200 }),
+    alt: "Seraya Studio — white marble coffee table",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_2hf0ru2hf0ru2hf0_nmz0ny", { width: 1200 }),
-    alt: "Seraya Studio — stone side table",
+    src: getCloudinaryUrl("seraya-studio-room_plxzdj", { width: 1200 }),
+    alt: "Seraya Studio — room",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_q01mqnq01mqnq01m_kjzzdk", { width: 1200 }),
-    alt: "Seraya Studio — sofa",
+    src: getCloudinaryUrl("coffee-table-dark_j7khsa", { width: 1200 }),
+    alt: "Seraya Studio — dark travertine coffee table",
   },
   {
-    src: getCloudinaryUrl("Gemini_Generated_Image_spzk7mspzk7mspzk_qdkjld", { width: 1200 }),
-    alt: "Seraya Studio — piece 4",
+    src: getCloudinaryUrl("seraya-side-table_white-marble_clean_h80rcc", { width: 1200 }),
+    alt: "Seraya Studio — white marble side table",
   },
   {
-    src: getCloudinaryUrl("Seraya_Studio__Gemini_3_Nano_Banana_Pro__2026-03-20_13-14-44_1_kb1hk5", { width: 1200 }),
-    alt: "Seraya Studio — piece 5",
+    src: getCloudinaryUrl("seraya-side-table_beige-travertine_clean_fvqwxq", { width: 1200 }),
+    alt: "Seraya Studio — beige travertine side table",
+  },
+  {
+    src: getCloudinaryUrl("seraya-side-table_dark-travertine_clean_yepejy", { width: 1200 }),
+    alt: "Seraya Studio — dark travertine side table",
   },
 ];
 
