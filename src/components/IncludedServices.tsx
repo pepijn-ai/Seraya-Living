@@ -7,7 +7,7 @@ const groups = [
       "Seraya Studio furnishings",
       "Fully equipped kitchen",
       "Hotel-grade linens",
-      "All utilities & WiFi",
+      "Utilities & WiFi arrangeable",
     ],
   },
   {
@@ -35,7 +35,7 @@ export default function IncludedServices() {
       <div className="max-w-[1400px] mx-auto px-3 md:px-6">
         <FadeIn>
           <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-16">
-            Included in every stay
+            Everything taken care of
           </h2>
         </FadeIn>
 
