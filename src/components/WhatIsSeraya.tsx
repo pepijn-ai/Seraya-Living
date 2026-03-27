@@ -34,7 +34,7 @@ export default function WhatIsSeraya() {
             The world of Seraya Living
           </p>
           <h2 className="font-serif text-3xl md:text-4xl font-medium text-brand-heading mb-16 max-w-lg leading-snug">
-            A new standard for extended stays in Dubai
+            A new way to live in Dubai
           </h2>
         </FadeIn>
 
