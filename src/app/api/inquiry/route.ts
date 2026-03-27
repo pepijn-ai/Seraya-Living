@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Resend } from "resend";
 
 interface InquiryBody {
   moveIn?: string;
@@ -39,7 +40,7 @@ function buildEmailHtml(data: InquiryBody): string {
 <!DOCTYPE html>
 <html>
 <body style="font-family:'DM Sans',Arial,sans-serif;background:#FCFAF6;padding:32px;">
-  <div style="max-width:600px;margin:0 auto;background:white;border-radius:8px;overflow:hidden;">
+  <div style="max-width:600px;margin:0 auto;background:white;overflow:hidden;">
     <div style="background:#5E301F;padding:24px 32px;">
       <h1 style="color:white;margin:0;font-size:20px;font-weight:600;">New Seraya Living Inquiry</h1>
     </div>
@@ -69,32 +70,16 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const toEmail = process.env.INQUIRY_EMAIL || "hello@serayastays.com";
-  const smtpConfigured =
-    process.env.SMTP_HOST &&
-    process.env.SMTP_USER &&
-    process.env.SMTP_PASS;
-
-  if (!smtpConfigured) {
-    console.log("[Seraya Living] New inquiry (SMTP not configured):", body);
+  if (!process.env.RESEND_API_KEY) {
+    console.log("[Seraya Living] New inquiry (Resend not configured):", body);
     return NextResponse.json({ success: true });
   }
 
   try {
-    const nodemailer = await import("nodemailer");
-    const transporter = nodemailer.default.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: Number(process.env.SMTP_PORT) === 465,
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    });
-
-    await transporter.sendMail({
-      from: `"Seraya Living" <${process.env.SMTP_USER}>`,
-      to: toEmail,
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: "Seraya Living <hello@serayastays.com>",
+      to: "hello@serayastays.com",
       replyTo: email,
       subject: `New inquiry from ${name}`,
       html: buildEmailHtml(body),
