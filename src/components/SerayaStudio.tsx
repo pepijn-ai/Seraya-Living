@@ -67,7 +67,7 @@ export default function SerayaStudio() {
               Every piece, yours to live with
             </h2>
             <p className="font-sans text-sm text-white/60 leading-relaxed mb-6 max-w-xs">
-              Every object in your residence is a Seraya Studio original — designed in-house and crafted locally in Dubai. Our residences are a living collection: stay among the pieces, and take home anything that moves you. Bespoke commissions welcome.
+              Every residence features original Seraya Studio pieces, designed in-house and crafted locally in Dubai. Each piece is available to order — or created to your specification.
             </p>
             <a
               href="https://seraya-studio.com/"
@@ -131,7 +131,7 @@ export default function SerayaStudio() {
             Every piece, yours to live with
           </h2>
           <p className="font-sans text-sm text-white/60 leading-relaxed mb-4">
-            Every object in your residence is a Seraya Studio original — designed in-house and crafted locally in Dubai.
+            Every residence features original Seraya Studio pieces, designed in-house and crafted locally in Dubai. Each piece is available to order — or created to your specification.
           </p>
           <a
             href="https://seraya-studio.com/"
