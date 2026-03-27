@@ -30,7 +30,7 @@ function buildWAMessage(f: FormData): string {
     f.stayMode === "flexible"
       ? "Duration: Flexible"
       : f.stayMode === "months" && f.stayMonths
-      ? `Duration: ${f.stayMonths} month${f.stayMonths > 1 ? "s" : ""}`
+      ? `Duration: ${f.stayMonths === 12 ? "12+ months" : `${f.stayMonths} month${f.stayMonths > 1 ? "s" : ""}`}`
       : f.moveOut
       ? `Move-out: ${formatDate(f.moveOut)}`
       : "Duration: Flexible";
@@ -323,15 +323,26 @@ function Step1({
         </div>
 
         {form.stayMode === "months" && (
-          <div className="flex flex-wrap gap-2">
-            {MONTHS.map((m) => (
-              <Chip
-                key={m}
-                label={`${m} mo`}
-                selected={form.stayMonths === m}
-                onClick={() => set("stayMonths", form.stayMonths === m ? null : m)}
-              />
-            ))}
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              min={1}
+              max={11}
+              value={form.stayMonths && form.stayMonths < 12 ? form.stayMonths : ""}
+              onChange={(e) => {
+                const v = parseInt(e.target.value);
+                if (!isNaN(v) && v >= 1) set("stayMonths", Math.min(v, 11));
+              }}
+              placeholder="e.g. 3"
+              className={`${input} w-28 flex-none`}
+              style={inputStyle}
+            />
+            <span className="font-sans text-sm text-brand-body/60">months</span>
+            <Chip
+              label="12+ months"
+              selected={form.stayMonths === 12}
+              onClick={() => set("stayMonths", form.stayMonths === 12 ? null : 12)}
+            />
           </div>
         )}
 
@@ -600,7 +611,7 @@ function Step4({
     form.stayMode === "flexible"
       ? "Flexible"
       : form.stayMode === "months" && form.stayMonths
-      ? `${form.stayMonths} month${form.stayMonths > 1 ? "s" : ""}`
+      ? (form.stayMonths === 12 ? "12+ months" : `${form.stayMonths} month${form.stayMonths > 1 ? "s" : ""}`)
       : form.moveOut
       ? `Until ${fmt(form.moveOut)}`
       : "Flexible";
