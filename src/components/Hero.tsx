@@ -56,7 +56,7 @@ export default function Hero({ inquiryValues, onInquiryChange, onInquiryCTA }: H
           Residences made for extended living
         </h1>
         <p className="mt-4 font-sans text-lg md:text-xl text-white/90">
-          Fully serviced, fully furnished, on your terms.
+          Fully serviced, fully furnished, on your terms
         </p>
       </div>
 

@@ -17,7 +17,7 @@ export const apartments: Apartment[] = [
     bedrooms: 3,
     guests: 7,
     sqm: 165,
-    priceFrom: 34000,
+    priceFrom: 28000,
     images: [
       "seraya/units/unit-36/listing/web/Vida Marina-2401(Web)-24",
       "seraya/units/unit-36/listing/web/Vida Marina-2401(Web)-14",
@@ -32,7 +32,7 @@ export const apartments: Apartment[] = [
     bedrooms: 4,
     guests: 9,
     sqm: 160,
-    priceFrom: 36000,
+    priceFrom: 28500,
     images: [
       "seraya/units/unit-49/listing/web/DTV1-2106(Web)-3",
       "seraya/units/unit-49/listing/web/DTV1-2106(Web)-6",
@@ -47,7 +47,7 @@ export const apartments: Apartment[] = [
     bedrooms: 1,
     guests: 3,
     sqm: 82,
-    priceFrom: 17500,
+    priceFrom: 12000,
     images: [
       "seraya/units/unit-37/listing/web/DTV1-1909(Web)-25",
       "seraya/units/unit-37/listing/web/DTV1-1909(Web)-24",
@@ -62,7 +62,7 @@ export const apartments: Apartment[] = [
     bedrooms: 3,
     guests: 7,
     sqm: 178,
-    priceFrom: 32000,
+    priceFrom: 23000,
     images: [
       "Urban_Oasis-2003_Web_-35_ushaad",
       "Urban_Oasis-2003_Web_-29_qq23i2",
@@ -77,7 +77,7 @@ export const apartments: Apartment[] = [
     bedrooms: 2,
     guests: 5,
     sqm: 109,
-    priceFrom: 21000,
+    priceFrom: 17500,
     images: [
       "seraya/units/unit-47/listing/web/Downtown Views II_T1_1901(Web)-51",
       "seraya/units/unit-47/listing/web/Downtown Views II_T1_1901(Web)-14",
