@@ -13,7 +13,7 @@ const groups = [
   {
     category: "Your service",
     items: [
-      "Monthly housekeeping",
+      "On-demand housekeeping",
       "Dedicated concierge",
       "24/7 support",
       "On-call maintenance",
@@ -24,7 +24,7 @@ const groups = [
     items: [
       "Pool & gym access",
       "Dedicated parking",
-      "Welcome provisions",
+      "Prime locations",
     ],
   },
 ];
