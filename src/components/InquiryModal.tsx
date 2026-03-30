@@ -323,7 +323,7 @@ function Step1({
         </div>
 
         {form.stayMode === "months" && (
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
             <input
               type="number"
               min={1}
@@ -334,10 +334,10 @@ function Step1({
                 if (!isNaN(v) && v >= 1) set("stayMonths", Math.min(v, 11));
               }}
               placeholder="e.g. 3"
-              className={`${input} w-28 flex-none`}
+              className={`${input} w-24 flex-none`}
               style={inputStyle}
             />
-            <span className="font-sans text-sm text-brand-body/60">months</span>
+            <span className="font-sans text-sm text-brand-body/60 flex-none">months</span>
             <Chip
               label="12+ months"
               selected={form.stayMonths === 12}
