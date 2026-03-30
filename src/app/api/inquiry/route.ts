@@ -3,26 +3,43 @@ import { Resend } from "resend";
 
 interface InquiryBody {
   moveIn?: string;
-  duration?: string;
-  bedrooms?: string;
+  stayMode?: "months" | "date" | "flexible";
+  stayMonths?: number | null;
+  moveOut?: string;
+  bedrooms?: string | string[];
+  areas?: string | string[];
   area?: string;
   budget?: string;
+  currency?: string;
   guests?: string;
   name: string;
   email: string;
   whatsapp: string;
 }
 
+function buildDurationLabel(data: InquiryBody): string {
+  if (data.stayMode === "flexible") return "Flexible";
+  if (data.stayMode === "months" && data.stayMonths) {
+    return data.stayMonths === 12 ? "12+ months" : `${data.stayMonths} month${data.stayMonths > 1 ? "s" : ""}`;
+  }
+  if (data.stayMode === "date" && data.moveOut) return `Until ${data.moveOut}`;
+  return "—";
+}
+
 function buildEmailHtml(data: InquiryBody): string {
+  const bedroomsVal = Array.isArray(data.bedrooms) ? (data.bedrooms.length > 0 ? data.bedrooms.join(", ") + " bed" : "Flexible") : (data.bedrooms || "—");
+  const areasVal = Array.isArray(data.areas) ? (data.areas.length > 0 ? data.areas.join(", ") : "No preference") : (data.area || "No preference");
+  const budgetVal = data.budget ? `${data.currency || "AED"} ${Number(data.budget).toLocaleString()}` : "—";
+
   const rows = [
     ["Name", data.name],
     ["Email", data.email],
     ["WhatsApp", data.whatsapp],
     ["Move-in date", data.moveIn || "—"],
-    ["Duration", data.duration || "—"],
-    ["Bedrooms", data.bedrooms || "—"],
-    ["Area preference", data.area || "No preference"],
-    ["Budget", data.budget || "—"],
+    ["Duration", buildDurationLabel(data)],
+    ["Bedrooms", bedroomsVal],
+    ["Area preference", areasVal],
+    ["Budget", budgetVal],
     ["Guests", data.guests || "—"],
   ];
 
