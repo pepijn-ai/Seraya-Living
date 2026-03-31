@@ -291,12 +291,15 @@ function Step1({
         {/* Move-in date */}
         <div className="md:flex-1">
           <p className={label}>Move-in date</p>
-          <CustomDatePicker
-            value={form.moveIn}
-            onChange={(v) => set("moveIn", v)}
-            placeholder="Select date"
-            inline
-          />
+          {/* On desktop, offset the calendar down to align with the right calendar when "by end date" is active (toggle height ≈ 57px) */}
+          <div className={form.stayMode === "date" ? "md:pt-[57px]" : ""}>
+            <CustomDatePicker
+              value={form.moveIn}
+              onChange={(v) => set("moveIn", v)}
+              placeholder="Select date"
+              inline
+            />
+          </div>
         </div>
 
         {/* Stay length */}
