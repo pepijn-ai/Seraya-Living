@@ -169,7 +169,7 @@ export default function InquiryModal({ open, onClose, initialValues }: InquiryMo
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
 
       <div
-        className="relative bg-brand-bg w-full max-w-lg max-h-[90vh] overflow-y-auto"
+        className="relative bg-brand-bg w-full max-w-lg md:max-w-2xl max-h-[90vh] overflow-y-auto"
         style={{ boxShadow: "0 24px 64px rgba(45, 23, 15, 0.25)" }}
       >
         {/* Header */}
@@ -286,80 +286,83 @@ function Step1({
 }) {
   return (
     <div className="flex flex-col gap-6">
-      {/* Move-in date */}
-      <div>
-        <p className={label}>Move-in date</p>
-        <CustomDatePicker
-          value={form.moveIn}
-          onChange={(v) => set("moveIn", v)}
-          placeholder="Select date"
-          inline
-        />
-      </div>
-
-      {/* Stay length */}
-      <div>
-        <p className={label}>Length of stay</p>
-
-        {/* Mode toggle */}
-        <div
-          className="flex rounded-none overflow-hidden mb-4"
-          style={{ border: "1px solid rgba(199, 117, 87, 0.4)" }}
-        >
-          {(["months", "date", "flexible"] as const).map((mode) => (
-            <button
-              key={mode}
-              type="button"
-              onClick={() => set("stayMode", mode)}
-              className={`flex-1 py-2.5 font-sans text-xs transition-colors duration-150 ${
-                form.stayMode === mode
-                  ? "bg-brand-body text-white"
-                  : "bg-white text-brand-body/60 hover:text-brand-body"
-              }`}
-            >
-              {mode === "months" ? "By months" : mode === "date" ? "By end date" : "I'm flexible"}
-            </button>
-          ))}
-        </div>
-
-        {form.stayMode === "months" && (
-          <div className="flex flex-wrap items-center gap-3">
-            <input
-              type="number"
-              min={1}
-              max={11}
-              value={form.stayMonths && form.stayMonths < 12 ? form.stayMonths : ""}
-              onChange={(e) => {
-                const v = parseInt(e.target.value);
-                if (!isNaN(v) && v >= 1) set("stayMonths", Math.min(v, 11));
-              }}
-              placeholder="e.g. 3"
-              className={`${input} w-24 flex-none`}
-              style={inputStyle}
-            />
-            <span className="font-sans text-sm text-brand-body/60 flex-none">months</span>
-            <Chip
-              label="12+ months"
-              selected={form.stayMonths === 12}
-              onClick={() => set("stayMonths", form.stayMonths === 12 ? null : 12)}
-            />
-          </div>
-        )}
-
-        {form.stayMode === "date" && (
+      {/* Desktop: calendar + stay length side by side. Mobile: stacked */}
+      <div className="flex flex-col md:flex-row md:gap-6">
+        {/* Move-in date */}
+        <div className="md:flex-1">
+          <p className={label}>Move-in date</p>
           <CustomDatePicker
-            value={form.moveOut}
-            onChange={(v) => set("moveOut", v)}
-            placeholder="Select move-out date"
+            value={form.moveIn}
+            onChange={(v) => set("moveIn", v)}
+            placeholder="Select date"
             inline
           />
-        )}
+        </div>
 
-        {form.stayMode === "flexible" && (
-          <p className="font-sans text-sm text-brand-body/50 italic">
-            No problem — we'll discuss dates with you directly.
-          </p>
-        )}
+        {/* Stay length */}
+        <div className="md:flex-1">
+          <p className={label}>Length of stay</p>
+
+          {/* Mode toggle */}
+          <div
+            className="flex rounded-none overflow-hidden mb-4"
+            style={{ border: "1px solid rgba(199, 117, 87, 0.4)" }}
+          >
+            {(["months", "date", "flexible"] as const).map((mode) => (
+              <button
+                key={mode}
+                type="button"
+                onClick={() => set("stayMode", mode)}
+                className={`flex-1 py-2.5 font-sans text-xs transition-colors duration-150 ${
+                  form.stayMode === mode
+                    ? "bg-brand-body text-white"
+                    : "bg-white text-brand-body/60 hover:text-brand-body"
+                }`}
+              >
+                {mode === "months" ? "By months" : mode === "date" ? "By end date" : "I'm flexible"}
+              </button>
+            ))}
+          </div>
+
+          {form.stayMode === "months" && (
+            <div className="flex flex-wrap items-center gap-3">
+              <input
+                type="number"
+                min={1}
+                max={11}
+                value={form.stayMonths && form.stayMonths < 12 ? form.stayMonths : ""}
+                onChange={(e) => {
+                  const v = parseInt(e.target.value);
+                  if (!isNaN(v) && v >= 1) set("stayMonths", Math.min(v, 11));
+                }}
+                placeholder="e.g. 3"
+                className={`${input} w-24 flex-none`}
+                style={inputStyle}
+              />
+              <span className="font-sans text-sm text-brand-body/60 flex-none">months</span>
+              <Chip
+                label="12+ months"
+                selected={form.stayMonths === 12}
+                onClick={() => set("stayMonths", form.stayMonths === 12 ? null : 12)}
+              />
+            </div>
+          )}
+
+          {form.stayMode === "date" && (
+            <CustomDatePicker
+              value={form.moveOut}
+              onChange={(v) => set("moveOut", v)}
+              placeholder="Select move-out date"
+              inline
+            />
+          )}
+
+          {form.stayMode === "flexible" && (
+            <p className="font-sans text-sm text-brand-body/50 italic">
+              No problem — we'll discuss dates with you directly.
+            </p>
+          )}
+        </div>
       </div>
 
       <button
