@@ -37,6 +37,9 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://living.serayastays.com",
   },
+  verification: {
+    google: "PzXDQZmGIlZQOLguedW75JZHDkJCkW_N7dTtwObkRu8",
+  },
   openGraph: {
     title: "Seraya Living — Fully serviced residences for extended stays in Dubai",
     description:
