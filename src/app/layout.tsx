@@ -20,12 +20,31 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: "Seraya Living — Fully serviced residences for extended stays in Dubai",
   description:
-    "Fully serviced luxury apartments in Dubai for extended stays of 1–12 months. No yearly lease required. Prime locations, utilities included, concierge support.",
+    "Fully serviced, fully furnished residences in Dubai for stays of 1 month or longer. Flexible lease terms, dedicated concierge, prime locations in Downtown, Marina and Business Bay.",
+  keywords: [
+    "furnished apartments Dubai",
+    "extended stay Dubai",
+    "serviced residences Dubai",
+    "monthly rentals Dubai",
+    "mid-term rentals Dubai",
+    "corporate housing Dubai",
+    "furnished rentals Dubai",
+    "long stay apartments Dubai",
+    "Downtown Dubai apartment",
+    "Dubai Marina apartment",
+  ],
+  metadataBase: new URL("https://living.serayastays.com"),
+  alternates: {
+    canonical: "https://living.serayastays.com",
+  },
   openGraph: {
-    title: "Seraya Living",
+    title: "Seraya Living — Fully serviced residences for extended stays in Dubai",
     description:
-      "Fully serviced residences for extended stays in Dubai.",
+      "Fully serviced, fully furnished residences in Dubai for stays of 1 month or longer. Flexible lease terms, dedicated concierge, prime locations.",
     siteName: "Seraya Living",
+    url: "https://living.serayastays.com",
+    type: "website",
+    locale: "en_AE",
     images: [
       {
         url: "https://living.serayastays.com/og-image.jpg",
@@ -35,6 +54,40 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Seraya Living — Fully serviced residences for extended stays in Dubai",
+    description:
+      "Fully serviced, fully furnished residences in Dubai for stays of 1 month or longer.",
+    images: ["https://living.serayastays.com/og-image.jpg"],
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  name: "Seraya Living",
+  description: "Fully serviced, fully furnished residences in Dubai for stays of 1 month or longer. Flexible lease terms, dedicated concierge, prime locations.",
+  url: "https://living.serayastays.com",
+  logo: "https://living.serayastays.com/icon.png",
+  image: "https://living.serayastays.com/og-image.jpg",
+  telephone: "+971532841002",
+  email: "hello@serayastays.com",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Dubai",
+    addressCountry: "AE",
+  },
+  areaServed: [
+    { "@type": "City", name: "Dubai" },
+  ],
+  amenityFeature: [
+    { "@type": "LocationFeatureSpecification", name: "Fully furnished" },
+    { "@type": "LocationFeatureSpecification", name: "Concierge service" },
+    { "@type": "LocationFeatureSpecification", name: "Flexible lease terms" },
+    { "@type": "LocationFeatureSpecification", name: "On-demand housekeeping" },
+  ],
+  priceRange: "AED 12,000 – 28,500 / month",
 };
 
 export default function RootLayout({
@@ -44,6 +97,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${cormorant.variable} ${dmSans.variable}`}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full font-sans">{children}<Analytics /></body>
     </html>
   );
