@@ -1,0 +1,77 @@
+/* ============================================================
+   Seraya Living Broker Brochure — Print & Screen Styles
+   A4 format: 210mm × 297mm
+   ============================================================ */
+
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* Force background colors and images to print */
+* {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+/* ---- Page container ---- */
+.brochure-page {
+  width: 210mm;
+  height: 297mm;
+  overflow: hidden;
+  position: relative;
+  background: #fcfaf6;
+  break-after: page;
+  page-break-after: always;
+}
+
+/* ---- Unit image placeholders ---- */
+.unit-img-placeholder-1 { background: #f0e9de; }
+.unit-img-placeholder-2 { background: #ebe3d8; }
+.unit-img-placeholder-3 { background: #e5ddd0; }
+
+/* ---- Page footer (7mm) ---- */
+.page-footer {
+  flex: none;
+  height: 7mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8mm;
+  border-top: 1px solid rgba(199, 117, 87, 0.15);
+  background: #fcfaf6;
+}
+
+/* ---- Screen preview ---- */
+@media screen {
+  body {
+    background: #bfb8b0 !important;
+  }
+
+  .brochure-wrapper {
+    padding: 40px 0 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+  }
+
+  .brochure-page {
+    box-shadow:
+      0 2px 8px rgba(45, 23, 15, 0.08),
+      0 8px 32px rgba(45, 23, 15, 0.12);
+  }
+}
+
+/* ---- Print overrides ---- */
+@media print {
+  .brochure-wrapper {
+    padding: 0;
+    gap: 0;
+  }
+
+  .brochure-page {
+    box-shadow: none;
+    margin: 0;
+  }
+}

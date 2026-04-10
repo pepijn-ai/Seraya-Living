@@ -7,6 +7,9 @@ interface CloudinaryOptions {
 }
 
 export function getCloudinaryUrl(publicId: string, options: CloudinaryOptions = {}): string {
+  // Local public-folder paths — return as-is
+  if (publicId.startsWith("/")) return publicId;
+
   const { width, height, crop = "fill", gravity = "auto", quality = "auto" } = options;
 
   // URL-encode special characters in public IDs
