@@ -18,7 +18,7 @@ export default function InquiryCTA({ onCTA }: { onCTA: () => void }) {
             onClick={onCTA}
             className="inline-flex items-center gap-3 bg-brand-cta text-white font-sans font-medium text-sm px-10 py-4 rounded-none hover:bg-[#3D2710] transition-colors duration-200"
           >
-            Request availability
+            See available residences
             <span aria-hidden="true">→</span>
           </button>
         </FadeIn>

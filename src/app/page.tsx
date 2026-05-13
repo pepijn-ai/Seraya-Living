@@ -17,11 +17,20 @@ import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import { InquiryBarStickyController } from "@/components/InquiryBar";
 import InquiryModal from "@/components/InquiryModal";
+import PortfolioInquiryModal from "@/components/PortfolioInquiryModal";
+import ExitPopupModal from "@/components/ExitPopupModal";
 import type { InquiryState } from "@/components/InquiryBar";
+import { useExitIntent } from "@/lib/useExitIntent";
 
 export default function Home() {
   const [inquiry, setInquiry] = useState<InquiryState>({ moveIn: "" });
   const [modalOpen, setModalOpen] = useState(false);
+  const [portfolioModalOpen, setPortfolioModalOpen] = useState(false);
+
+  const exitIntent = useExitIntent({ targetSelector: "[data-exit-target]" });
+
+  const openMain = () => { exitIntent.markEngaged(); setModalOpen(true); };
+  const openPortfolio = () => { exitIntent.markEngaged(); setPortfolioModalOpen(true); };
 
   return (
     <>
@@ -29,29 +38,38 @@ export default function Home() {
       <Hero
         inquiryValues={inquiry}
         onInquiryChange={setInquiry}
-        onInquiryCTA={() => setModalOpen(true)}
+        onInquiryCTA={openMain}
       />
       <WhatIsSeraya />
       <SocialProof />
       <HowItWorks />
-      <FeaturedResidences onInquiryCTA={() => setModalOpen(true)} />
+      <FeaturedResidences onInquiryCTA={openPortfolio} />
       <IncludedServices />
       <GuestServices />
       <Locations />
       <SerayaStudio />
-      <InquiryCTA onCTA={() => setModalOpen(true)} />
+      <InquiryCTA onCTA={openMain} />
       <FAQ />
       <Footer />
       <WhatsAppButton />
       <InquiryBarStickyController
         values={inquiry}
         onChange={setInquiry}
-        onCTA={() => setModalOpen(true)}
+        onCTA={openMain}
       />
       <InquiryModal
         open={modalOpen}
         onClose={() => setModalOpen(false)}
         initialValues={inquiry}
+      />
+      <PortfolioInquiryModal
+        open={portfolioModalOpen}
+        onClose={() => setPortfolioModalOpen(false)}
+      />
+      <ExitPopupModal
+        open={exitIntent.open}
+        onClose={exitIntent.dismiss}
+        onSubmitted={exitIntent.markSubmitted}
       />
     </>
   );

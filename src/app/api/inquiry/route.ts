@@ -15,6 +15,13 @@ interface InquiryBody {
   name: string;
   email: string;
   whatsapp: string;
+  source?: "portfolio" | "exit_popup" | string;
+}
+
+function buildSubjectPrefix(source?: string): string {
+  if (source === "exit_popup") return "[Exit popup] ";
+  if (source === "portfolio") return "[Portfolio] ";
+  return "";
 }
 
 function buildDurationLabel(data: InquiryBody): string {
@@ -98,7 +105,7 @@ export async function POST(request: NextRequest) {
       from: "Seraya Living <hello@serayastays.com>",
       to: "hello@serayastays.com",
       replyTo: email,
-      subject: `New inquiry from ${name}`,
+      subject: `${buildSubjectPrefix(body.source)}New inquiry from ${name}`,
       html: buildEmailHtml(body),
     });
 

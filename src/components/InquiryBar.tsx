@@ -50,7 +50,7 @@ export default function InquiryBar({ values, onChange, onCTA, sticky = false }: 
             onClick={handleCTA}
             className="flex-none bg-brand-cta text-white font-sans font-medium text-sm px-8 py-3 rounded-none hover:bg-[#3D2710] transition-colors duration-200 flex items-center justify-center gap-2 whitespace-nowrap"
           >
-            Request availability
+            See available residences
             <span aria-hidden="true">→</span>
           </button>
         </div>

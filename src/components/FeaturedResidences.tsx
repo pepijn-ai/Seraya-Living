@@ -39,10 +39,11 @@ export default function FeaturedResidences({ onInquiryCTA }: { onInquiryCTA?: ()
         <FadeIn>
           <div className="mt-12 flex justify-center">
             <button
+              data-exit-target
               onClick={onInquiryCTA}
               className="inline-flex items-center gap-3 bg-brand-cta text-white font-sans font-medium text-sm px-8 py-4 hover:bg-[#3D2710] transition-colors duration-200"
             >
-              Inquire to see the full portfolio
+              See the full portfolio
               <span aria-hidden="true">→</span>
             </button>
           </div>
