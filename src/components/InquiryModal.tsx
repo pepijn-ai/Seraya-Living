@@ -376,7 +376,7 @@ function Step1({
       </button>
 
       <p className="text-center font-sans text-xs text-brand-body/40 -mt-3">
-        Preferences and details are optional
+        A few quick details help us match you to the right residences
       </p>
     </div>
   );
@@ -397,11 +397,13 @@ function Step2({
   onBack: () => void;
   onNext: () => void;
 }) {
+  const canContinue = form.bedrooms.length > 0 && form.budget.trim() !== "";
+
   return (
     <div className="flex flex-col gap-6">
       {/* Bedrooms */}
       <div>
-        <p className={label}>Bedrooms — select all that apply</p>
+        <p className={label}>Bedrooms — select all that apply *</p>
         <div className="flex flex-wrap gap-2">
           {BEDROOMS.map((b) => (
             <Chip
@@ -411,11 +413,6 @@ function Step2({
               onClick={() => toggleArr("bedrooms", b)}
             />
           ))}
-          <Chip
-            label="I'm flexible"
-            selected={form.bedrooms.length === 0}
-            onClick={() => set("bedrooms", [])}
-          />
         </div>
       </div>
 
@@ -441,7 +438,7 @@ function Step2({
 
       {/* Budget */}
       <div>
-        <p className={label}>Budget per month (optional)</p>
+        <p className={label}>Budget per month *</p>
         <div className="flex gap-2">
           <input
             type="number"
@@ -460,6 +457,9 @@ function Step2({
             />
           </div>
         </div>
+        <p className="font-sans text-xs text-brand-body/50 mt-1.5">
+          Minimum AED 10,000 per month.
+        </p>
       </div>
 
       {/* Guests */}
@@ -486,7 +486,8 @@ function Step2({
         </button>
         <button
           onClick={onNext}
-          className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] transition-colors flex items-center justify-center gap-2"
+          disabled={!canContinue}
+          className="flex-1 bg-brand-cta text-white font-sans font-medium text-sm py-4 rounded-none hover:bg-[#3D2710] disabled:opacity-40 transition-colors flex items-center justify-center gap-2"
         >
           Continue <span aria-hidden="true">→</span>
         </button>
@@ -508,7 +509,7 @@ function Step3({
   onBack: () => void;
   onNext: () => void;
 }) {
-  const canSubmit = form.name && form.email && form.whatsapp;
+  const canSubmit = form.name && form.email && form.callNumber && form.whatsapp;
 
   return (
     <div className="flex flex-col gap-5">
@@ -539,9 +540,10 @@ function Step3({
       </div>
 
       <div>
-        <p className={label}>Number to call (optional)</p>
+        <p className={label}>Number to call *</p>
         <input
           type="tel"
+          required
           value={form.callNumber}
           onChange={(e) => set("callNumber", e.target.value)}
           placeholder="+971 50 123 4567"
