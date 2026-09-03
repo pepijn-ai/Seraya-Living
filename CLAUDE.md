@@ -1,168 +1,81 @@
-# Seraya Living — Project Context for Claude Code
+# Seraya Living — Claude Code instructions
 
-## What this is
-A standalone Next.js landing page for **Seraya Living**, a luxury mid-term rental brand in Dubai (sub-brand of Seraya). The site is inquiry-only — no booking engine. Primary conversion is through a 3-step modal that ends with a WhatsApp CTA. Lives at `living.serayastays.com`.
+## Project context
+Standalone Next.js landing page for **Seraya Living** — luxury mid-term rental brand in Dubai, sub-brand of Seraya. **Inquiry-only**, no booking engine; conversions go to WhatsApp or email. Lives at `living.serayastays.com`. GitHub: `pepijn-ai/Seraya-Living`. Audience: corporate relocators, digital nomads, 1–12 month furnished stays.
 
-**Target audience:** Corporate relocators, digital nomads, professionals seeking 1–12 month furnished apartment stays in Dubai.
-
-**GitHub:** https://github.com/pepijn-ai/Seraya-Living
-**Project root:** `/Users/pepijnhaima/Seraya-Living/`
-
----
+Also read `AGENTS.md` (repo root): this Next version diverges from training data — check `node_modules/next/dist/docs/` before writing Next.js-specific code.
 
 ## Stack
-- Next.js (App Router, TypeScript)
-- Tailwind CSS v4 — tokens defined in `@theme` in `globals.css`, NOT in `tailwind.config.ts`
-- `lucide-react` for icons (always `strokeWidth={1.5}`)
-- `embla-carousel-react` for apartment image carousels
-- `nodemailer` for email fallback
-- `next/font/google` for fonts
-- `next/image` for all images
+- **Framework:** Next.js 16.2.1 (App Router, TypeScript 5), npm
+- **Styling:** Tailwind CSS v4 — tokens in `@theme` in `globals.css`
+- **Fonts:** Cormorant Garamond + DM Sans via `next/font/google` (`--font-cormorant` / `--font-dm-sans` → `font-serif` / `font-sans`)
+- **Email:** Resend via `/api/inquiry` (`nodemailer` is an unused legacy dep — zero imports)
+- **Images/video:** Cloudinary (cloud `dce1arrhg`) + `next/image`; **Hero is video with an image fallback**
+- **Carousel:** embla-carousel-react · **Icons:** lucide-react, always `strokeWidth={1.5}` · **Forms:** vanilla React
+- **PDF:** `brochure-print.mjs` (puppeteer devDep) renders `localhost:3000/brochure` to A4 PDF — dev server must be running
 
----
+## Commands
+- `npm run dev` → http://localhost:3000 · `npm run build` · `npm run lint`
+- Deploy: push to `main` → Vercel auto-deploys; manual `npx vercel --prod`
 
-## Brand & Design System
-
-### Colors (defined in `src/app/globals.css` via `@theme`)
-- `brand-bg`: #FCFAF6 — warm white, primary background
-- `brand-bg-alt`: #F7F1E8 — warm cream, alternate sections
-- `brand-heading`: #5E301F — deep brown, headings and icons
-- `brand-body`: #2D170F — near-black brown, body text and CTAs
-- `brand-cta`: #2D170F — primary button fill
-- `brand-accent`: #C77557 — terracotta, borders and highlights
-
-### Fonts
-- **Serif** (`font-serif`) = Cormorant Garamond — ALL headings and display text
-- **Sans** (`font-sans`) = DM Sans — body, labels, buttons, UI
-
-### Layout
-- Max content width: `max-w-[1400px] mx-auto`
-- Horizontal padding: `px-3 md:px-6`
-- Section vertical padding: `py-20 md:py-28`
-
-### Aesthetic rules
-- **No rounded corners anywhere** — all inputs, buttons, modals, cards are sharp (`rounded-none`)
-- No drop shadows on cards (only modal overlays)
-- No black (#000) — use `brand-body` (#2D170F)
-- No animation libraries — CSS transitions only
-- No native `<select>` or `<input type="date">` — use CustomSelect and CustomDatePicker
-- Alternate sections between `brand-bg` and `brand-bg-alt`
-- Icons: lucide-react, strokeWidth 1.5, never filled
-- Input border: `1px solid rgba(199, 117, 87, 0.5)`
-- Dropdown/modal shadow: `0 8px 32px rgba(45, 23, 15, 0.12)`
-
-### Typography scale
-| Use | Classes |
-|-----|---------|
-| Section heading | `font-serif text-3xl md:text-4xl font-medium text-brand-heading` |
-| Card heading | `font-serif text-xl font-medium text-brand-heading` |
-| Eyebrow label | `font-sans text-[10px] uppercase tracking-widest text-brand-accent` |
-| Body text | `font-sans text-sm text-brand-body/70 leading-relaxed` |
-| Button | `font-sans font-medium text-sm` |
-
-### Buttons
-```jsx
-// Primary CTA
-<button className="inline-flex items-center gap-2 bg-brand-cta text-white font-sans font-medium text-sm px-8 py-4 hover:bg-[#3D2710] transition-colors duration-200">
-  Label <span aria-hidden="true">→</span>
-</button>
+## Architecture map
+```
+src/
+  app/
+    layout.tsx          Fonts, metadata, OG/Twitter, JSON-LD (LodgingBusiness), Search Console tag
+    page.tsx            Landing page — renders 18 children (see Page structure)
+    api/inquiry/        Single API route — Resend email (all three inquiry sources)
+    brochure/           Standalone broker page (~985 LoC, decoupled, real Cloudinary images)
+    brochure-clean/     Variant (~968 LoC) — UNTRACKED in git, as is brochure-print.mjs
+    robots.ts sitemap.ts  (sitemap hardcodes https://living.serayastays.com)
+  components/           InquiryModal, PortfolioInquiryModal, ExitPopupModal, GuestServices,
+                        CustomDatePicker, CustomSelect, Hero, Navbar, Footer, sections…
+                        (InquiryForm.tsx is DEAD CODE — zero importers)
+  data/apartments.ts    5 landing units (Seraya 32, 49, 37, 29, 47) — FeaturedResidences source
+  data/brochureUnits.ts 23-unit dataset for the brochure pages (propertyFinderUrl, views,
+                        landscape/portrait/story images; mixes Cloudinary IDs + local paths)
+  lib/                  cloudinary.ts (getCloudinaryUrl), useExitIntent.ts, formatPrice.ts
 ```
 
----
+## Page structure (actual render order in `page.tsx`)
+Navbar · Hero · WhatIsSeraya · SocialProof · HowItWorks · **FeaturedResidences** · IncludedServices · **GuestServices** · Locations · **SerayaStudio** · InquiryCTA (`id="inquiry-form"`) · FAQ · Footer · WhatsAppButton · InquiryBarStickyController · InquiryModal · PortfolioInquiryModal · ExitPopupModal
 
-## Page Structure (exact order from page.tsx)
-1. **Navbar** — transparent at top, solid on scroll
-2. **Hero** — full-screen Cloudinary image (`seraya/units/unit-47/listing/web/Downtown Views II_T1_1901(Web)-51`), headline "Flexible luxury living in Dubai", 4 proof points, InquiryBar at bottom
-3. **WhatIsSeraya** — "The world of Seraya Living", 3-col USP grid with 4:5 portrait images
-4. **SocialProof** — Condé Nast quote over dunes image (`public/images/press/dunes.png`) + logo strip (Airbnb, Forbes, Condé Nast, CNT)
-5. **HowItWorks** — 4-col horizontal steps with vertical dividers between columns
-6. **IncludedServices** — icon grid
-7. **FeaturedResidences** — 3 cards top row (aspect-[4/3]) + 2 larger bottom row (aspect-[4/3]), 5 apartments total
-8. **SerayaStudio** — dark section (#2D170F bg), asymmetric grid (3fr left + 2fr right with 2 stacked), placeholder images, swap for real furniture photos
-9. **Locations** — Dubai districts with images
-10. **InquiryCTA** — centered CTA section, `id="inquiry-form"` (required for sticky bar IntersectionObserver)
-11. **FAQ** — accordion, one open at a time
-12. **Footer**
-13. **WhatsAppButton** — fixed bottom right, z-60
-14. **InquiryBarStickyController** — fixed bottom bar, shows when BOTH #hero and #inquiry-form are out of viewport
-15. **InquiryModal** — 3-step modal, primary conversion flow
+## Key patterns
 
----
+**Three inquiry entry points, one API route.** All POST `/api/inquiry`; the route's `source` field (`portfolio` / `exit_popup` / default) sets the email subject prefix via `buildSubjectPrefix()`:
+- `InquiryModal` (703 LoC) — primary 3-step flow; final step offers WhatsApp deep link (primary) or email submit. `WA_NUMBER` at top.
+- `PortfolioInquiryModal` (160 LoC) — name/email/phone only; **FeaturedResidences' CTA opens this one**, not the main modal.
+- `ExitPopupModal` (346 LoC) — driven by `src/lib/useExitIntent.ts` (156 LoC): `[data-exit-target]` selector + `markEngaged`/`markSubmitted`/`dismiss` suppression. Easy to break silently — exercise the popup after touching modal open/close logic.
 
-## Conversion Flow
-- **Primary CTA everywhere** → opens `InquiryModal`
-- **InquiryModal** — 3 steps:
-  - Step 1: Move-in date + length of stay (by months / by end date / flexible)
-  - Step 2: Bedrooms (chips), area (chips), budget (number + currency dropdown), guests
-  - Step 3: Name, email, call number (optional), WhatsApp → "Send on WhatsApp" (primary) or "submit by email"
-- WhatsApp number: `13322841002`
-- Email fallback: POST to `/api/inquiry` → nodemailer to `hello@serayastays.com`
+**Inquiry email is self-notification.** From AND to are `hello@serayastays.com` — Pepijn's inbox. There is no customer-facing confirmation email; don't propose changes assuming the customer receives one.
 
----
+**Hardcoded constants — still duplicated, no shared module.** Update ALL sites when touching:
+- WhatsApp `13322841002`: `WhatsAppButton.tsx`, `Navbar.tsx`, `Footer.tsx`, `InquiryModal.tsx`
+- `hello@serayastays.com`: `layout.tsx`, `api/inquiry` (×2), `Navbar.tsx` (×2), `Footer.tsx` (×2)
+- Cloud `dce1arrhg`: `lib/cloudinary.ts`, `Hero.tsx`, `SerayaStudio.tsx`, `next.config.ts` (remotePatterns)
 
-## Key Components
+**Sticky inquiry bar.** IntersectionObserver on `#hero` AND `#inquiry-form`; bar shows only when both are out of viewport. New sections near the top can interfere.
 
-### CustomDatePicker
-- Supports `inline` prop — renders calendar in-place (no dropdown). Use inside modals to avoid overflow clipping.
-- Past dates disabled, Monday-start grid, Today shortcut
+**Custom inputs over native.** Always `CustomDatePicker` (use its `inline` prop inside modals) and `CustomSelect`; never `<input type="date">` or `<select>`.
 
-### CustomSelect
-- Supports `className` prop for width control
-- Use `<div className="w-24 flex-none"><CustomSelect .../></div>` to constrain width
+**Cloudinary.** Always `f_auto,q_auto` via `getCloudinaryUrl()`. Apartment images: `seraya/units/unit-XX/listing/web/<filename>`. Exceptions: Seraya 29 / Urban Oasis images live at root level; `SerayaStudio.tsx` intentionally uses `c_pad,b_rgb:2D170F` (brand-bg square pad) — don't normalize to the helper.
 
-### ImageCarousel
-- Supports `aspectClass` prop (e.g. `"aspect-[4/3]"`, `"aspect-square"`)
-- Default: `"aspect-[4/3]"`
+**Hero.** `<video>` with Cloudinary MP4 (`seraya-hero-sharp_qsw01y.mp4`) over a `next/image` poster fallback (`HERO_IMAGE`). Keep both layers.
 
-### ApartmentCard
-- Supports `aspectClass` prop, passed through to ImageCarousel
+**Brochure pages are decoupled.** Both read `brochureUnits.ts`, not `apartments.ts`. Treat as separate work items; landing changes don't propagate.
 
-### InquiryBarStickyController
-- Uses IntersectionObserver on `#hero` and `#inquiry-form`
-- Shows sticky bottom bar only when BOTH are out of viewport
+## Design notes
+Living uses the main Seraya design system — canonical reference: `~/.claude/references/seraya-design-system.md` (read when working on UI or copy). The `seraya-brand-design` skill applies here too — load it for customer-facing UI work. Key local values: `max-w-[1400px]`, `px-3 md:px-6`, `py-20 md:py-28`, alternate `brand-bg` (#FCFAF6) / `brand-bg-alt` (#F7F1E8), input border `1px solid rgba(199,117,87,0.5)`. Global Seraya rules apply: no rounded corners, no black, no native inputs, CSS transitions only, no card shadows.
 
-### FadeIn
-- IntersectionObserver fade-in, `delay` prop in ms
+## Gotchas
+- **No tests, no CI** — verify by loading the page.
+- `RESEND_API_KEY` unset → `/api/inquiry` logs to console instead of sending. Production must have it in Vercel env.
+- **Phone mismatch:** JSON-LD `telephone` is `+971532841002` (UAE); WhatsApp uses `13322841002` (US prefix). Confirm intent before reconciling.
+- **Untracked working-tree state:** `brochure-clean/`, `brochure-print.mjs`, and an `Images ` folder (trailing space) are not in git; commit or clean deliberately.
+- `tailwind.config.ts` exists but tokens live in `globals.css` `@theme` — don't add tokens to the config file.
 
----
+## Environment variables
+`RESEND_API_KEY` (inquiry email) · `NEXT_PUBLIC_SITE_URL` (metadataBase, defaults to https://living.serayastays.com — note `sitemap.ts` hardcodes it instead)
 
-## Cloudinary
-- Cloud name: `dce1arrhg`
-- Helper: `src/lib/cloudinary.ts` → `getCloudinaryUrl(publicId, options?)`
-- Encodes spaces → `%20`, `(` → `%28`, `)` → `%29`
-- Always uses `f_auto,q_auto`
-- Remote pattern configured in `next.config.ts`
-
-### Current apartment images
-- **Seraya 32** (Marina, 3BR): `seraya/units/unit-36/listing/web/Vida Marina-2401(Web)-24` etc.
-- **Seraya 49** (Downtown, 4BR): `seraya/units/unit-49/listing/web/DTV1-2106(Web)-3` etc.
-- **Seraya 37** (Downtown, 1BR): `seraya/units/unit-37/listing/web/DTV1-1909(Web)-25` etc.
-- **Seraya 29** (Business Bay, 3BR): `Urban_Oasis-2003_Web_-35_ushaad` etc. (root level, no folder)
-- **Seraya 47** (Downtown, 2BR): `seraya/units/unit-47/listing/web/Downtown Views II_T1_1901(Web)-51` etc.
-
-### Press/social proof assets
-Local files in `public/images/press/`:
-- `dunes.png` — background image for quote section
-- `airbnb.png`, `forbes.png`, `conde-nast.png`, `conde-nast-traveler.png` — logos
-
----
-
-## Pending / In Progress
-- USP section (WhatIsSeraya) images — replacing with AI-generated editorial images. Direction:
-  - "Stay on your terms": `Seraya_Living__Gemini_3_Nano_Banana_Pro_2026-03-23_21-56-36_50_wxydpr` ✓ live
-  - "Arrive and live": styled detail shot — bed, kitchen counter, or dining table
-  - "Entirely looked after": curated apartment detail, serene, dusk light
-
----
-
-## Tone of Voice
-Aman/Janu style — understated, confident, no marketing fluff:
-- Never use "No..." (negative framing) — always positive
-- Short, evocative phrases
-- Possessive "your" to make it personal
-- Avoid: "pricing", "package", "inclusive", "digital"
-
----
-
-## Co-founder context
-Ibrahim is building the onboarding flow separately. He has a full design system brief to ensure consistency — it was shared with him separately and covers all tokens, components, and rules above.
+## Related systems
+Post-inquiry tenant interaction (CRM, onboarding, contracts) lives in Seraya OS / Mission Control (`~/mission-control`) — inquiries from this site land in its Living CRM.
